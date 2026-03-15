@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>አምድ-ቻት | Amd-Chat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #1877f2; --bg: #f0f2f5; --white: #ffffff; --gold: #ffc107; --blue-badge: #0095f6; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; }
+        
+        /* ዛጉዌ እና አምድ-ቻት ጥቅስ ዲዛይን */
+        .zagwe-header {
+            background: linear-gradient(90deg, #000, #1c1e21, #000);
+            color: var(--gold);
+            padding: 18px 10px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            border-bottom: 4px solid var(--gold);
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+        header { background: var(--white); position: sticky; top: 0; z-index: 1000; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .nav-tabs { display: flex; justify-content: space-around; background: white; border-top: 1px solid #eee; }
+        .nav-item { flex: 1; text-align: center; padding: 12px 0; color: #65676b; font-size: 22px; cursor: pointer; }
+        .nav-item.active { color: var(--primary); border-bottom: 3px solid var(--primary); }
+        .page { display: none; padding: 15px; max-width: 500px; margin: auto; }
+        .active-page { display: block; }
+        .card { background: var(--white); border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        input, textarea { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #ddd; box-sizing: border-box; font-size: 16px; }
+        .btn { background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; transition: 0.3s; }
+        .post-img { width: 100%; border-radius: 8px; margin-top: 10px; }
+        .badge { color: var(--blue-badge); font-size: 16px; margin-left: 5px; }
+        .post-header { font-weight: bold; display: flex; align-items: center; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="zagwe-header">
+        "ትላንት በዓለት ላይ ጥበብን ቀረጽን፤ ዛሬ በዲጂታሉ ዓለም 'አምድ-ቻት'ን መሰረትን። ከዛጉዌ ታላቅነት ወደ አምድ የቴክኖሎጂ ምህዳር! 🏰✨"
+    </div>
+    <div id="main-nav" class="nav-tabs" style="display: none;">
+        <div class="nav-item active" onclick="showTab('home', this)"><i class="fas fa-home"></i></div>
+        <div class="nav-item" onclick="showTab('menu', this)"><i class="fas fa-bars"></i></div>
+    </div>
+</header>
+
+<div id="auth-page" class="page active-page">
+    <div class="card">
+        <h2 style="text-align:center; color:var(--primary);">አምድ-ቻት (Amd-Chat)</h2>
+        <div id="reg-fields" style="display:none;"><input type="text" id="fullName" placeholder="ሙሉ ስም"></div>
+        <input type="email" id="email" placeholder="ኢሜይል">
+        <input type="password" id="password" placeholder="የምስጢር ቁጥር">
+        <button class="btn" onclick="handleAuth()" id="auth-btn">ግባ</button>
+        <p onclick="toggleAuth()" style="color:var(--primary); text-align:center; cursor:pointer; margin-top:15px; font-size:14px;">አዲስ አካውንት ለመክፈት እዚህ ይጫኑ</p>
+    </div>
+</div>
+
+<div id="home" class="page">
+    <div class="card">
+        <textarea id="postText" placeholder="ምን አዲስ ነገር አለ?"></textarea>
+        <input type="file" id="postFile" accept="image/*">
+        <button class="btn" onclick="createPost()" id="post-btn">Post</button>
+    </div>
+    <div id="feed"></div>
+</div>
+
+<div id="menu" class="page">
+    <div class="card" style="text-align:center;">
+        <h2 id="p-name">ተጠቃሚ</h2>
+        <button class="btn" style="background:#f0f2f5; color:red; margin-top:20px;" onclick="logout()">Logout (ውጣ)</button>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, doc, setDoc, getDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAdv-ScBVDMzhpC3PcEEUL8fyF7Fcjbmjw",
+        authDomain: "amde-chat-e7912.firebaseapp.com",
+        projectId: "amde-chat-e7912",
+        storageBucket: "amde-chat-e7912.firebasestorage.app",
+        messagingSenderId: "869934494219",
+        appId: "1:869934494219:web:d5007c7d9d8c6a932c0d0e"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const CLOUD_NAME = "dxmn0vdpa"; 
+    const UPLOAD_PRESET = "amde_preset"; 
+
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            document.getElementById('auth-page').style.display = 'none';
+            document.getElementById('main-nav').style.display = 'flex';
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if(userDoc.exists()) {
+                const data = userDoc.data();
+                document.getElementById('p-name').innerHTML = data.fullName + (data.isVerified ? ' <i class="fas fa-check-circle badge"></i>' : '');
+            }
+            loadPosts();
+        } else {
+            document.getElementById('auth-page').style.display = 'block';
+            document.getElementById('main-nav').style.display = 'none';
+        }
+    });
+
+    window.handleAuth = async () => {
+        const e = document.getElementById('email').value, p = document.getElementById('password').value;
+        const isReg = document.getElementById('auth-btn').innerText === "ተመዝገብ";
+        try {
+            if(isReg) {
+                const fn = document.getElementById('fullName').value;
+                if(!fn) return alert("ስምዎን ያስገቡ");
+                const uc = await createUserWithEmailAndPassword(auth, e, p);
+                await setDoc(doc(db, "users", uc.user.uid), { fullName: fn, email: e, uid: uc.user.uid, isVerified: false });
+            } else { await signInWithEmailAndPassword(auth, e, p); }
+        } catch(err) { alert(err.message); }
+    };
+
+    window.createPost = async () => {
+        const text = document.getElementById('postText').value, file = document.getElementById('postFile').files[0], btn = document.getElementById('post-btn');
+        if(!text && !file) return;
+        btn.innerText = "በመለጠፍ ላይ..."; btn.disabled = true;
+        let imgUrl = "";
+        try {
+            if(file) {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('upload_preset', UPLOAD_PRESET);
+                const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: formData });
+                const data = await res.json();
+                imgUrl = data.secure_url;
+            }
+            await addDoc(collection(db, "posts"), { text, imgUrl, userName: document.getElementById('p-name').innerHTML, time: Date.now() });
+            document.getElementById('postText').value = ""; document.getElementById('postFile').value = "";
+        } catch (err) { alert("መለጠፍ አልተቻለም"); }
+        btn.innerText = "Post"; btn.disabled = false;
+    };
+
+    function loadPosts() {
+        onSnapshot(query(collection(db, "posts"), orderBy("time", "desc")), (snap) => {
+            const f = document.getElementById('feed'); f.innerHTML = "";
+            snap.forEach(d => {
+                const p = d.data();
+                f.innerHTML += `<div class="card">
+                    <div class="post-header">${p.userName}</div>
+                    <div>${p.text}</div>
+                    ${p.imgUrl ? `<img src="${p.imgUrl}" class="post-img">` : ''}
+                </div>`;
+            });
+        });
+    }
+
+    window.logout = () => { signOut(auth).then(() => location.reload()); };
+    window.toggleAuth = () => {
+        const isL = document.getElementById('auth-btn').innerText === "ግባ";
+        document.getElementById('auth-btn').innerText = isL ? "ተመዝገብ" : "ግባ";
+        document.getElementById('reg-fields').style.display = isL ? 'block' : 'none';
+    };
+    window.showTab = (id, el) => {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+        document.getElementById(id).classList.add('active-page');
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        el.classList.add('active');
+    };
+</script>
+</body>
+</html>
