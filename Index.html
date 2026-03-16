@@ -3,264 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amde-Chat Rainbow Edition</title>
+    <title>Amde-Chat Multimedia Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Noto+Sans+Ethiopic:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --gold-bg: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            --rainbow: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
             --bright-blue: #007bff;
-            --bright-green: #28a745;
-            --soft-bg: #fdfdfd; /* ጥቁር ያልሆነ ጀርባ */
+            --soft-bg: #f8f9fa;
         }
 
-        body { 
-            font-family: 'Noto Sans Ethiopic', sans-serif; 
-            background-color: var(--soft-bg);
-            color: #333;
-            margin: 0;
-            padding-bottom: 100px;
-        }
+        body { font-family: 'Noto Sans Ethiopic', sans-serif; background: var(--soft-bg); margin: 0; padding-bottom: 90px; }
 
-        /* 🌈 በተለያየ ቀለም የሚያበራው ራስጌ */
-        header { 
-            padding: 40px 20px;
-            text-align: center;
-            background: #fff;
-            border-bottom: 5px solid;
-            border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 1;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
+        /* 🌈 Header */
+        header { padding: 30px 15px; text-align: center; background: #fff; border-bottom: 4px solid; border-image: var(--rainbow) 1; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .brand-name { font-family: 'Orbitron'; font-size: 35px; background: var(--rainbow); -webkit-background-clip: text; color: transparent; animation: shift 3s infinite linear; }
+        @keyframes shift { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+        
+        .premium-quote { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; padding: 15px; border-radius: 12px; margin: 15px auto; max-width: 500px; font-weight: bold; }
 
-        .brand-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 45px;
-            font-weight: 900;
-            letter-spacing: 5px;
-            display: block;
-            margin-bottom: 15px;
-            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: rainbow-glow 3s linear infinite;
-        }
+        /* 📝 Post Box */
+        .post-box { background: #fff; border-radius: 15px; padding: 15px; margin: 15px auto; max-width: 500px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .post-box textarea { width: 100%; border: none; outline: none; font-size: 16px; resize: none; }
+        .file-label { color: var(--bright-blue); cursor: pointer; font-size: 20px; margin-right: 15px; }
+        .btn-post { background: var(--bright-blue); color: #fff; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; float: right; cursor: pointer; }
 
-        @keyframes rainbow-glow {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
+        /* 🖼️ Feed Cards */
+        .feed-card { background: #fff; border-radius: 15px; padding: 15px; margin: 15px auto; max-width: 500px; border-left: 5px solid var(--bright-blue); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .feed-card img, .feed-card video { width: 100%; border-radius: 10px; margin-top: 10px; }
+        .post-user { font-weight: bold; color: #f5576c; display: block; margin-bottom: 5px; }
 
-        /* 👑 በጣም በሚያምር background ጥቅስ */
-        .premium-quote {
-            font-size: 17px;
-            line-height: 1.8;
-            color: #fff;
-            max-width: 550px;
-            margin: 25px auto 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(245, 87, 108, 0.4);
-            border: 2px solid rgba(255,255,255,0.2);
-            font-weight: 700;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-        }
+        /* 💬 Chat System */
+        .chat-container { height: 60vh; overflow-y: auto; padding: 10px; background: #fff; border-radius: 15px; max-width: 500px; margin: auto; }
+        .msg { padding: 10px 15px; border-radius: 15px; margin-bottom: 8px; max-width: 80%; }
+        .msg.sent { background: var(--bright-blue); color: #fff; margin-left: auto; }
+        .msg.recv { background: #eee; color: #333; }
 
-        /* 🔒 Login Box (ባለ ቀለም) */
-        .auth-card { 
-            background: #fff;
-            border-radius: 25px; 
-            max-width: 380px;
-            margin: 40px auto;
-            padding: 40px 30px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-            border-top: 8px solid var(--bright-blue);
-        }
+        /* 🧭 Nav */
+        nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; height: 70px; border-top: 1px solid #ddd; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+        .nav-item { flex: 1; text-align: center; padding-top: 12px; color: #aaa; cursor: pointer; }
+        .nav-item.active { color: var(--bright-blue); }
+        .nav-item i { font-size: 22px; display: block; }
 
-        .styled-input { 
-            width: 100%; padding: 15px; margin-bottom: 15px; 
-            border: 1px solid #ddd; border-radius: 10px; 
-            background: #f9f9f9; color: #333;
-            outline: none; box-sizing: border-box; font-size: 16px;
-        }
-        .styled-input:focus { border-color: var(--bright-blue); background: #fff; }
-
-        .btn-colorful { 
-            background: linear-gradient(to right, var(--bright-blue), #00c6ff); 
-            border: none; color: #fff; padding: 15px; width: 100%; 
-            border-radius: 10px; font-weight: 700; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 2px;
-            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
-        }
-
-        /* 📝 Post Area */
-        .post-container { max-width: 500px; margin: 20px auto; padding: 0 15px; }
-        .post-input-box { 
-            background: #fff; 
-            border: 1px solid #eee; 
-            border-radius: 15px; padding: 20px; margin-bottom: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            border-top: 5px solid var(--bright-green);
-        }
-        .post-input-box textarea { width: 100%; background: transparent; border: none; color: #333; outline: none; font-size: 16px; resize: none; }
-
-        .post-card { 
-            background: #fff; 
-            border: 1px solid #f0f0f0;
-            padding: 20px; border-radius: 15px; margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-            border-left: 5px solid var(--bright-blue);
-        }
-        .post-user { color: #f5576c; font-weight: bold; margin-bottom: 8px; display: block; font-size: 14px; }
-
-        /* 🧭 Floating Nav (ባለ ቀለም) */
-        .colorful-nav { 
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 400px;
-            background: #fff;
-            border: 1px solid #eee;
-            display: flex; height: 75px; align-items: center; 
-            border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            z-index: 1000;
-        }
-        .nav-link { flex: 1; text-align: center; color: #bbb; cursor: pointer; transition: 0.3s; }
-        .nav-link.active { color: var(--bright-blue); transform: scale(1.1); }
-        .nav-link i { font-size: 24px; display: block; margin-bottom: 4px; }
-        .nav-link span { font-size: 11px; font-weight: 700; }
-
-        .tab { display: none; padding: 20px; animation: slideIn 0.5s; }
-        .active-tab { display: block; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .page { display: none; padding: 10px; animation: fadeIn 0.4s; }
+        .active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="brand-name">AMDE-CHAT</div>
-        <div class="premium-quote">
-            "ትላንት በዓለት ላይ ጥበብን ቀረጽን፤ ዛሬ በዲጂታሉ ዓለም 'አምድ-ቻት'ን መሰረትን። ከዛጉዌ ታላቅነት ወደ አምድ የቴክኖሎጂ ምህዳር! 🏰✨"
-        </div>
-    </header>
+<header>
+    <div class="brand-name">AMDE-CHAT</div>
+    <div class="premium-quote">"ከዛጉዌ ጥበብ ወደ ዲጂታል አምድ! 🏰✨"</div>
+</header>
 
-    <div id="auth-page" class="tab active-tab">
-        <div class="auth-card">
-            <h2 style="text-align:center; color: #333; margin-top: 0;">እንኳን ደህና መጡ</h2>
-            <div id="reg-fields" style="display:none;"><input type="text" id="fullName" class="styled-input" placeholder="ሙሉ ስም"></div>
-            <input type="text" id="email" class="styled-input" placeholder="ስልክ ቁጥር ወይም ኢሜይል">
-            <input type="password" id="password" class="styled-input" placeholder="የምስጢር ቁጥር">
-            <button class="btn-colorful" onclick="handleAuth()" id="auth-btn">ግባ</button>
-            <p onclick="toggleAuth()" id="toggle-text" style="text-align:center; color: var(--bright-blue); cursor: pointer; margin-top: 25px; font-weight: 700; font-size: 14px;">አዲስ አካውንት መክፈት እፈልጋለሁ</p>
-        </div>
+<div id="auth-page" class="page active">
+    <div style="max-width:350px; margin: 50px auto; background:#fff; padding:30px; border-radius:20px; text-align:center;">
+        <h2 id="auth-title">መግቢያ</h2>
+        <input type="email" id="email" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:10px;" placeholder="ኢሜይል">
+        <input type="password" id="password" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:10px;" placeholder="የምስጢር ቁጥር">
+        <button onclick="handleAuth()" class="btn-post" style="float:none; width:100%; margin-top:10px;">ግባ</button>
+        <p onclick="toggleAuth()" style="color:var(--bright-blue); cursor:pointer; margin-top:15px;">አዲስ አካውንት መክፈት</p>
     </div>
+</div>
 
-    <div id="home" class="tab">
-        <div class="post-container">
-            <div class="post-input-box">
-                <textarea id="postTxt" placeholder="ምን አዲስ መረጃ አለ?"></textarea>
-                <button class="btn-colorful" style="width: 120px; padding: 10px; float: right;" onclick="createPost()">POST</button>
-                <div style="clear:both;"></div>
-            </div>
-            <div id="feed"></div>
-        </div>
+<div id="home" class="page">
+    <div class="post-box">
+        <textarea id="postTxt" placeholder="ምን አዲስ ነገር አለ?"></textarea>
+        <hr style="border:0.5px solid #eee;">
+        <label class="file-label"><i class="fas fa-camera"></i><input type="file" id="postFile" hidden accept="image/*,video/*"></label>
+        <button class="btn-post" onclick="uploadPost()">POST</button>
+        <div style="clear:both;"></div>
     </div>
+    <div id="feed-container"></div>
+</div>
 
-    <div id="chat" class="tab"><h3 style="color:var(--bright-blue); text-align:center;">💬 መልዕክቶች</h3></div>
-    <div id="video" class="tab"><h3 style="color:var(--bright-blue); text-align:center;">🎥 የቀጥታ ቪዲዮ</h3></div>
-    <div id="settings" class="tab" style="text-align:center;"><button class="btn-colorful" style="background:#ff4757; width: auto;" onclick="logout()">ውጣ (Logout)</button></div>
+<div id="chat" class="page">
+    <div class="chat-container" id="chat-box"></div>
+    <div style="max-width:500px; margin:10px auto; display:flex;">
+        <input type="text" id="msgInput" style="flex:1; padding:12px; border-radius:20px; border:1px solid #ddd;" placeholder="መልዕክት ይጻፉ...">
+        <button onclick="sendMsg()" style="background:var(--bright-blue); border:none; color:#fff; width:50px; height:45px; border-radius:50%; margin-left:5px;"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
 
-    <nav class="colorful-nav" id="nav-bar" style="display:none;">
-        <div class="nav-link active" onclick="showTab('home', this)"><i class="fas fa-rss"></i><span>Feed</span></div>
-        <div class="nav-link" onclick="showTab('chat', this)"><i class="fas fa-comments"></i><span>Chat</span></div>
-        <div class="nav-link" onclick="showTab('video', this)"><i class="fas fa-play-circle"></i><span>Live</span></div>
-        <div class="nav-link" onclick="showTab('settings', this)"><i class="fas fa-user-cog"></i><span>Set</span></div>
-    </nav>
+<nav id="navbar" style="display:none;">
+    <div class="nav-item active" onclick="showTab('home', this)"><i class="fas fa-home"></i><span>Feed</span></div>
+    <div class="nav-item" onclick="showTab('chat', this)"><i class="fas fa-comments"></i><span>Chat</span></div>
+    <div class="nav-item" onclick="showTab('video', this)"><i class="fas fa-play-circle"></i><span>Live</span></div>
+    <div class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i><span>Exit</span></div>
+</nav>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBHcrGqhXf4tkIqPi1sMCFC4zo9XrRoBFE",
-            authDomain: "amde-chat-46e14.firebaseapp.com",
-            projectId: "amde-chat-46e14",
-            storageBucket: "amde-chat-46e14.firebasestorage.app",
-            messagingSenderId: "1087288685786",
-            appId: "1:1087288685786:web:467d7fce6555cc0544a1e3"
-        };
+    const firebaseConfig = {
+        apiKey: "AIzaSyBHcrGqhXf4tkIqPi1sMCFC4zo9XrRoBFE",
+        authDomain: "amde-chat-46e14.firebaseapp.com",
+        projectId: "amde-chat-46e14",
+        storageBucket: "amde-chat-46e14.firebasestorage.app",
+        messagingSenderId: "1087288685786",
+        appId: "1:1087288685786:web:467d7fce6555cc0544a1e3"
+    };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        let user = null;
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    let currentUser = null;
 
-        onAuthStateChanged(auth, (u) => {
-            if (u) {
-                user = u;
-                document.getElementById('auth-page').style.display = 'none';
-                document.getElementById('nav-bar').style.display = 'flex';
-                document.getElementById('home').classList.add('active-tab');
-                loadFeed();
-            } else {
-                document.getElementById('auth-page').style.display = 'block';
-                document.getElementById('nav-bar').style.display = 'none';
-            }
-        });
-
-        window.createPost = async () => {
-            const txt = document.getElementById('postTxt').value;
-            if(!txt.trim()) return;
-            await addDoc(collection(db, "posts"), {
-                text: txt,
-                user: user.email.split('@')[0],
-                time: serverTimestamp()
-            });
-            document.getElementById('postTxt').value = "";
-        };
-
-        function loadFeed() {
-            const q = query(collection(db, "posts"), orderBy("time", "desc"));
-            onSnapshot(q, (snap) => {
-                const feed = document.getElementById('feed');
-                feed.innerHTML = "";
-                snap.forEach(doc => {
-                    const d = doc.data();
-                    feed.innerHTML += `
-                        <div class="post-card">
-                            <span class="post-user">@${d.user}</span>
-                            <div>${d.text}</div>
-                        </div>
-                    `;
-                });
-            });
+    onAuthStateChanged(auth, user => {
+        if(user) {
+            currentUser = user;
+            document.getElementById('auth-page').classList.remove('active');
+            document.getElementById('navbar').style.display = 'flex';
+            document.getElementById('home').classList.add('active');
+            loadFeed();
+            loadChat();
+        } else {
+            document.getElementById('auth-page').classList.add('active');
+            document.getElementById('navbar').style.display = 'none';
         }
+    });
 
-        window.handleAuth = async () => {
-            const e = document.getElementById('email').value, p = document.getElementById('password').value;
-            const isReg = document.getElementById('auth-btn').innerText === "ተመዝገብ";
-            const finalEmail = e.includes('@') ? e : e + "@amde.com"; 
-            try {
-                isReg ? await createUserWithEmailAndPassword(auth, finalEmail, p) : await signInWithEmailAndPassword(auth, finalEmail, p);
-            } catch (err) { alert(err.message); }
-        };
+    // Post with Photo/Video Simulation
+    window.uploadPost = async () => {
+        const txt = document.getElementById('postTxt').value;
+        const file = document.getElementById('postFile').files[0];
+        if(!txt && !file) return;
 
-        window.toggleAuth = () => {
-            const isLogin = document.getElementById('auth-btn').innerText === "ግባ";
-            document.getElementById('auth-btn').innerText = isLogin ? "ተመዝገብ" : "ግባ";
-            document.getElementById('toggle-text').innerText = isLogin ? "አካውንት አለኝ? ግባ" : "አዲስ አካውንት መክፈት እፈልጋለሁ";
-            document.getElementById('reg-fields').style.display = isLogin ? "block" : "none";
-        };
+        // ማሳሰቢያ፡ እውነተኛ ፋይል ሰርቨር ላይ ለመጫን Firebase Storage ያስፈልጋል። 
+        // ለጊዜው በURL መልክ ጽሁፉን እንልካለን።
+        await addDoc(collection(db, "posts"), {
+            text: txt,
+            user: currentUser.email.split('@')[0],
+            time: serverTimestamp(),
+            hasFile: file ? true : false,
+            fileType: file ? file.type : null
+        });
+        document.getElementById('postTxt').value = "";
+    };
 
-        window.showTab = (id, el) => {
-            document.querySelectorAll('.tab').forEach(p => p.classList.remove('active-tab'));
-            document.getElementById(id).classList.add('active-tab');
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            el.classList.add('active');
-        };
+    function loadFeed() {
+        onSnapshot(query(collection(db, "posts"), orderBy("time", "desc")), snap => {
+            const cont = document.getElementById('feed-container');
+            cont.innerHTML = "";
+            snap.forEach(doc => {
+                const d = doc.data();
+                cont.innerHTML += `<div class="feed-card">
+                    <span class="post-user">@${d.user}</span>
+                    <p>${d.text}</p>
+                    ${d.hasFile ? '<div style="background:#eee; padding:20px; text-align:center; border-radius:10px;">📷 Media Attached</div>' : ''}
+                </div>`;
+            });
+        });
+    }
 
-        window.logout = () => signOut(auth).then(() => location.reload());
-    </script>
+    // Chat System
+    window.sendMsg = async () => {
+        const m = document.getElementById('msgInput').value;
+        if(!m.trim()) return;
+        await addDoc(collection(db, "messages"), {
+            text: m,
+            sender: currentUser.email,
+            time: serverTimestamp()
+        });
+        document.getElementById('msgInput').value = "";
+    };
+
+    function loadChat() {
+        onSnapshot(query(collection(db, "messages"), orderBy("time", "asc")), snap => {
+            const box = document.getElementById('chat-box');
+            box.innerHTML = "";
+            snap.forEach(doc => {
+                const d = doc.data();
+                const cls = d.sender === currentUser.email ? 'sent' : 'recv';
+                box.innerHTML += `<div class="msg ${cls}">${d.text}</div>`;
+            });
+            box.scrollTop = box.scrollHeight;
+        });
+    }
+
+    window.handleAuth = () => {
+        const e = document.getElementById('email').value, p = document.getElementById('password').value;
+        const isLogin = document.getElementById('auth-title').innerText === "መግቢያ";
+        isLogin ? signInWithEmailAndPassword(auth, e, p) : createUserWithEmailAndPassword(auth, e, p);
+    };
+
+    window.toggleAuth = () => {
+        const t = document.getElementById('auth-title');
+        t.innerText = t.innerText === "መግቢያ" ? "ይመዝገቡ" : "መግቢያ";
+    };
+
+    window.showTab = (id, el) => {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        el.classList.add('active');
+    };
+
+    window.logout = () => signOut(auth);
+</script>
 </body>
 </html>
