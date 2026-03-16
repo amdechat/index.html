@@ -3,174 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amde-Chat Digital Brand</title>
+    <title>Amde-Chat Radiant Brand</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Noto+Sans+Ethiopic:wght@300;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --neon-blue: #00d2ff;
-            --dim-gold: #c6a300;
-            --tech-black: #080808;
-            --glow: 0 0 10px rgba(0, 210, 255, 0.5);
+            --neon-blue: #00f2ff;
+            --bright-gold: #ffcc00;
+            --deep-space: #050a15; /* ጥቁር ሳይሆን ጥልቅ ሰማያዊ */
+            --electric-glow: 0 0 15px rgba(0, 242, 255, 0.6);
         }
 
         body { 
             font-family: 'Noto Sans Ethiopic', sans-serif; 
-            background-color: var(--tech-black);
-            color: #e0e0e0;
+            background-color: var(--deep-space);
+            background: linear-gradient(180deg, #0a1128 0%, #050a15 100%);
+            color: #ffffff;
             margin: 0;
             padding-bottom: 100px;
-            overflow-x: hidden;
         }
 
-        /* 🌌 Tech Header */
+        /* 🌌 የሚያበራ Header */
         header { 
-            padding: 60px 20px;
+            padding: 50px 20px;
             text-align: center;
-            background: radial-gradient(circle at top, #1a1a1a 0%, #080808 100%);
-            border-bottom: 1px solid rgba(0, 210, 255, 0.2);
+            border-bottom: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .brand-name {
             font-family: 'Orbitron', sans-serif;
-            font-size: 40px;
+            font-size: 42px;
             font-weight: 900;
             letter-spacing: 8px;
-            margin-bottom: 25px;
             display: block;
-        }
-
-        .amde-glow {
             color: #fff;
-            text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
         }
 
-        /* ✨ ብልጭ ድርግም የሚለው ጥቅስ (Blinking Neon) */
         .neon-quote {
-            font-size: 15px;
-            line-height: 1.8;
-            color: var(--dim-gold);
-            max-width: 450px;
-            margin: 0 auto;
+            font-size: 16px;
+            color: var(--bright-gold);
+            max-width: 500px;
+            margin: 20px auto 0;
             padding: 15px;
-            border: 1px solid rgba(198, 163, 0, 0.3);
-            border-radius: 5px;
-            animation: blink 4s infinite;
+            background: rgba(255, 204, 0, 0.1);
+            border: 1px solid var(--bright-gold);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+            animation: pulse 2s infinite;
         }
 
-        @keyframes blink {
-            0%, 18%, 22%, 25%, 53%, 57%, 100% {
-                text-shadow: 0 0 5px var(--dim-gold), 0 0 10px var(--dim-gold);
-                opacity: 1;
-                border-color: rgba(198, 163, 0, 0.6);
-            }
-            20%, 24%, 55% {
-                text-shadow: none;
-                opacity: 0.4;
-                border-color: rgba(198, 163, 0, 0.1);
-            }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }
+            50% { transform: scale(1.02); box-shadow: 0 0 20px rgba(255, 204, 0, 0.5); }
+            100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }
         }
 
-        /* 🔒 Dim Light Auth Card */
+        /* 🔒 Login Box (የሚያበራ) */
         .auth-box { 
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border: 2px solid var(--neon-blue);
             padding: 40px 25px; 
-            border-radius: 20px; 
+            border-radius: 25px; 
             max-width: 380px;
-            margin: -30px auto 0;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            margin: 40px auto;
+            box-shadow: var(--electric-glow);
         }
 
         .digital-input { 
             width: 100%; padding: 15px; margin-bottom: 15px; 
-            border: 1px solid #333; border-radius: 8px; 
-            background: #000; color: var(--neon-blue);
-            font-family: 'Orbitron', sans-serif; font-size: 14px;
-            outline: none; transition: 0.4s;
+            border: 2px solid rgba(0, 242, 255, 0.3); border-radius: 12px; 
+            background: rgba(0, 0, 0, 0.5); color: #fff;
+            font-family: 'Orbitron', sans-serif; outline: none; box-sizing: border-box;
         }
-        .digital-input:focus { border-color: var(--neon-blue); box-shadow: var(--glow); }
+        .digital-input:focus { border-color: var(--neon-blue); box-shadow: var(--electric-glow); }
 
         .btn-access { 
-            background: none; border: 1px solid var(--neon-blue);
-            color: var(--neon-blue); padding: 15px; width: 100%; 
-            border-radius: 8px; font-weight: bold; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 3px;
-            transition: 0.3s; font-family: 'Orbitron', sans-serif;
+            background: var(--neon-blue); border: none;
+            color: #000; padding: 15px; width: 100%; 
+            border-radius: 12px; font-weight: 900; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 2px;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: var(--electric-glow);
         }
-        .btn-access:hover { background: var(--neon-blue); color: #000; box-shadow: var(--glow); }
 
-        /* 📝 New Post Styles */
-        .post-container { max-width: 500px; margin: 20px auto; padding: 0 15px; }
-        .post-box { background: #000; border: 1px solid var(--neon-blue); padding: 15px; border-radius: 10px; margin-bottom: 30px; }
-        .post-box textarea { width: 100%; background: transparent; border: none; color: white; resize: none; outline: none; font-size: 16px; }
-        .post-card { background: rgba(255,255,255,0.03); border: 1px solid #222; border-left: 3px solid var(--neon-blue); padding: 15px; border-radius: 8px; margin-bottom: 15px; animation: fadeIn 0.5s; }
-        .post-user { color: var(--dim-gold); font-size: 12px; font-weight: bold; margin-bottom: 5px; display: block; }
+        /* 📝 Post Area */
+        .post-area { max-width: 480px; margin: 20px auto; padding: 0 15px; }
+        .post-input-box { 
+            background: rgba(255, 255, 255, 0.08); 
+            border: 1px solid var(--neon-blue); 
+            border-radius: 15px; padding: 15px; margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .post-input-box textarea { width: 100%; background: transparent; border: none; color: #fff; outline: none; font-size: 16px; }
 
-        /* 🧭 Floating Navigation */
+        .post-card { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid rgba(0, 242, 255, 0.2);
+            padding: 20px; border-radius: 15px; margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .post-user { color: var(--bright-gold); font-weight: bold; margin-bottom: 8px; display: block; }
+
+        /* 🧭 Nav */
         .nav-float { 
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             width: 90%; max-width: 400px;
-            background: rgba(10, 10, 10, 0.9); 
-            border: 1px solid rgba(0, 210, 255, 0.3);
-            display: flex; height: 65px; align-items: center; 
-            border-radius: 50px; z-index: 1000;
+            background: rgba(10, 20, 40, 0.9); 
+            border: 2px solid var(--neon-blue);
+            display: flex; height: 70px; align-items: center; 
+            border-radius: 35px; box-shadow: var(--electric-glow);
         }
-        .nav-btn { flex: 1; text-align: center; color: #444; cursor: pointer; }
-        .nav-btn.active { color: var(--neon-blue); }
-        .nav-btn i { font-size: 20px; display: block; }
-        .nav-btn span { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-btn { flex: 1; text-align: center; color: #778899; cursor: pointer; }
+        .nav-btn.active { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
 
-        .page { display: none; padding: 20px; animation: fadeIn 0.8s; }
+        .page { display: none; padding: 20px; animation: slideUp 0.5s ease; }
         .active-page { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="brand-name">
-            <span class="amde-glow">AMDE</span><span style="color:#444;">-CHAT</span>
-        </div>
+        <div class="brand-name">AMDE-CHAT</div>
         <div class="neon-quote">
-            "ትላንት በዓለት ላይ ጥበብን ቀረጽን፤ ዛሬ በዲጂታሉ ዓለም 'አምድ-ቻት'ን መሰረትን። ከዛጉዌ ታላቅነት ወደ አምድ የቴክኖሎጂ ምህዳር! 🏰✨"
+            "ትላንት በዓለት ላይ ጥበብን ቀረጽን፤ ዛሬ በዲጂታሉ ዓለም 'አምድ-ቻት'ን መሰረትን። 🏰✨"
         </div>
     </header>
 
     <div id="auth-page" class="page active-page">
         <div class="auth-box">
-            <h3 style="text-align:center; letter-spacing:4px; font-family:'Orbitron'; color:#666;">LOGIN_REQUIRED</h3>
+            <h3 style="text-align:center; color: var(--neon-blue); font-family: 'Orbitron';">WELCOME_USER</h3>
             <div id="reg-fields" style="display:none;">
-                <input type="text" id="fullName" class="digital-input" placeholder="FULL_NAME">
+                <input type="text" id="fullName" class="digital-input" placeholder="FULL NAME">
             </div>
-            <input type="text" id="email" class="digital-input" placeholder="ID / PHONE_NUM">
-            <input type="password" id="password" class="digital-input" placeholder="ACCESS_CODE">
-            <button class="btn-access" onclick="handleAuth()" id="auth-btn">INITIALIZE</button>
-            <p onclick="toggleAuth()" id="toggle-text" style="text-align:center; color: #444; cursor: pointer; margin-top: 20px; font-size: 11px;">CREATE_NEW_ID</p>
+            <input type="text" id="email" class="digital-input" placeholder="EMAIL / PHONE">
+            <input type="password" id="password" class="digital-input" placeholder="PASSWORD">
+            <button class="btn-access" onclick="handleAuth()" id="auth-btn">ENTER SYSTEM</button>
+            <p onclick="toggleAuth()" style="text-align:center; color: #fff; cursor: pointer; margin-top: 20px; font-size: 13px; text-decoration: underline;">CREATE ACCOUNT</p>
         </div>
     </div>
 
     <div id="home" class="page">
-        <div class="post-container">
-            <div class="post-box">
-                <textarea id="postTxt" placeholder="WRITE_DATA_CORE..."></textarea>
-                <button class="btn-access" style="padding: 5px; font-size: 12px;" onclick="createPost()">EXECUTE_POST</button>
+        <div class="post-area">
+            <div class="post-input-box">
+                <textarea id="postTxt" placeholder="ምን አዲስ መረጃ አለ?"></textarea>
+                <button class="btn-access" style="width: 120px; padding: 8px; float: right;" onclick="createPost()">POST</button>
+                <div style="clear:both;"></div>
             </div>
             <div id="feed"></div>
         </div>
     </div>
 
-    <div id="chat" class="page"><h4 style="color:var(--neon-blue)">> ENCRYPTED_CHATS</h4></div>
-    <div id="video" class="page"><h4 style="color:var(--neon-blue)">> STREAM_STATION</h4></div>
-    <div id="settings" class="page" style="text-align:center;"><button class="btn-access" style="border-color:#ff4757; color:#ff4757; width: auto;" onclick="logout()">TERMINATE</button></div>
+    <div id="chat" class="page"><h4 style="color:var(--neon-blue); text-align:center;">> CHAT_ROOM_ACTIVE</h4></div>
+    <div id="video" class="page"><h4 style="color:var(--neon-blue); text-align:center;">> LIVE_STREAM_STATION</h4></div>
+    <div id="settings" class="page" style="text-align:center;"><button class="btn-access" style="background:#ff4757; width: auto;" onclick="logout()">LOGOUT</button></div>
 
     <nav class="nav-float" id="nav-bar" style="display:none;">
-        <div class="nav-btn active" onclick="showTab('home', this)"><i class="fas fa-terminal"></i><span>Feed</span></div>
-        <div class="nav-btn" onclick="showTab('chat', this)"><i class="fas fa-satellite-dish"></i><span>Chat</span></div>
-        <div class="nav-btn" onclick="showTab('video', this)"><i class="fas fa-broadcast-tower"></i><span>Live</span></div>
-        <div class="nav-item nav-btn" onclick="showTab('settings', this)"><i class="fas fa-user-secret"></i><span>Admin</span></div>
+        <div class="nav-btn active" onclick="showTab('home', this)"><i class="fas fa-home"></i><span>Feed</span></div>
+        <div class="nav-btn" onclick="showTab('chat', this)"><i class="fas fa-comment-dots"></i><span>Chat</span></div>
+        <div class="nav-btn" onclick="showTab('video', this)"><i class="fas fa-play-circle"></i><span>Live</span></div>
+        <div class="nav-btn" onclick="showTab('settings', this)"><i class="fas fa-cog"></i><span>Set</span></div>
     </nav>
 
     <script type="module">
@@ -190,11 +187,11 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        let currentUser = null;
+        let user = null;
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                currentUser = user;
+        onAuthStateChanged(auth, (u) => {
+            if (u) {
+                user = u;
                 document.getElementById('auth-page').style.display = 'none';
                 document.getElementById('nav-bar').style.display = 'flex';
                 document.getElementById('home').classList.add('active-page');
@@ -210,7 +207,7 @@
             if(!txt.trim()) return;
             await addDoc(collection(db, "posts"), {
                 text: txt,
-                user: currentUser.email.split('@')[0],
+                user: user.email.split('@')[0],
                 time: serverTimestamp()
             });
             document.getElementById('postTxt').value = "";
@@ -243,8 +240,8 @@
         };
 
         window.toggleAuth = () => {
-            const isLogin = document.getElementById('auth-btn').innerText === "INITIALIZE";
-            document.getElementById('auth-btn').innerText = isLogin ? "ተመዝገብ" : "INITIALIZE";
+            const isLogin = document.getElementById('auth-btn').innerText === "ENTER SYSTEM";
+            document.getElementById('auth-btn').innerText = isLogin ? "ተመዝገብ" : "ENTER SYSTEM";
             document.getElementById('reg-fields').style.display = isLogin ? "block" : "none";
         };
 
