@@ -3,173 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amde-Chat Digital</title>
+    <title>Amde-Chat Digital Feed</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@900&family=Orbitron:wght@500;700&family=Noto+Sans+Ethiopic:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Noto+Sans+Ethiopic:wght@300;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --neon-blue: #00f2ff;
-            --digital-gold: #ffc107;
-            --deep-space: #050505;
-            --glass: rgba(255, 255, 255, 0.1);
+            --neon-blue: #00d2ff;
+            --dim-gold: #c6a300;
+            --tech-black: #080808;
+            --card-bg: rgba(20, 20, 20, 0.7);
         }
 
         body { 
             font-family: 'Noto Sans Ethiopic', sans-serif; 
-            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%); 
-            color: #fff;
-            margin: 0; 
-            padding-bottom: 90px;
+            background-color: var(--tech-black);
+            color: #e0e0e0;
+            margin: 0;
+            padding-bottom: 100px;
             overflow-x: hidden;
         }
 
-        /* 🏰 Futuristic Header */
         header { 
             padding: 50px 20px;
             text-align: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-            position: relative;
+            background: radial-gradient(circle at top, #1a1a1a 0%, #080808 100%);
+            border-bottom: 1px solid rgba(0, 210, 255, 0.2);
         }
 
-        .logo-digital {
+        .brand-name {
             font-family: 'Orbitron', sans-serif;
-            font-size: 45px;
+            font-size: 35px;
             font-weight: 900;
             letter-spacing: 6px;
             margin-bottom: 20px;
             display: block;
         }
 
-        .amde-neon {
+        .amde-glow {
             color: #fff;
-            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue);
-            animation: pulse 2s infinite;
+            text-shadow: 0 0 10px var(--neon-blue);
         }
 
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.7; text-shadow: 0 0 20px var(--digital-gold); }
-            100% { opacity: 1; }
-        }
-
-        .quote-digital {
-            font-size: 16px;
-            line-height: 1.8;
-            color: #ccc;
-            max-width: 500px;
+        .neon-quote {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--dim-gold);
+            max-width: 450px;
             margin: 0 auto;
-            border-left: 3px solid var(--digital-gold);
-            padding-left: 15px;
-            text-align: left;
-            background: rgba(255, 193, 7, 0.05);
+            padding: 12px;
+            border: 1px solid rgba(198, 163, 0, 0.2);
+            animation: blink 4s infinite;
         }
 
-        /* 🔒 Glassmorphism Auth Card */
-        .auth-container { padding: 0 20px; }
-        .digital-card { 
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px 25px; 
-            border-radius: 30px; 
-            max-width: 400px;
-            margin: -20px auto 0;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        @keyframes blink {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; text-shadow: 0 0 5px var(--dim-gold); }
+            20%, 24%, 55% { opacity: 0.3; text-shadow: none; }
         }
 
-        .digital-input { 
-            width: 100%; padding: 18px; margin-bottom: 20px; 
-            border: 1px solid rgba(255,255,255,0.2); 
-            border-radius: 15px; 
-            font-size: 16px; 
-            outline: none; 
-            background: rgba(0,0,0,0.3);
+        /* 📝 Post Box System */
+        .post-input-container {
+            background: var(--card-bg);
+            margin: 20px auto;
+            max-width: 500px;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .post-input {
+            width: 100%;
+            background: #000;
+            border: 1px solid #333;
             color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            resize: none;
+            outline: none;
+            font-size: 15px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .post-input:focus { border-color: var(--neon-blue); }
+
+        .btn-post {
+            background: none;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Orbitron';
+            float: right;
             transition: 0.3s;
         }
-        .digital-input:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 242, 255, 0.3); }
 
-        .phone-box {
-            display: flex; background: rgba(0,0,0,0.3); border-radius: 15px; border: 1px solid rgba(255,255,255,0.2); margin-bottom: 20px;
+        .btn-post:hover { background: var(--neon-blue); color: #000; }
+
+        /* 📱 Feed Cards */
+        .feed-container { max-width: 500px; margin: 0 auto; padding: 10px; }
+        .post-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--neon-blue);
+            animation: fadeIn 0.5s ease;
         }
-        .phone-box span { padding: 18px; color: var(--digital-gold); font-weight: bold; border-right: 1px solid rgba(255,255,255,0.2); }
 
-        .btn-digital { 
-            background: linear-gradient(45deg, var(--neon-blue), #0052cc); 
-            color: white; border: none; padding: 18px; width: 100%; 
-            border-radius: 15px; font-weight: bold; font-size: 18px; 
-            cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
-            box-shadow: 0 10px 20px rgba(0, 242, 255, 0.2);
-            transition: 0.3s;
+        .post-card .username { color: var(--dim-gold); font-size: 13px; font-weight: bold; margin-bottom: 10px; display: block; }
+        .post-card .text { font-size: 16px; line-height: 1.6; }
+
+        /* 🧭 Floating Nav */
+        .nav-float { 
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 400px;
+            background: rgba(10, 10, 10, 0.95); 
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            display: flex; height: 65px; align-items: center; 
+            border-radius: 50px; z-index: 1000;
         }
-        .btn-digital:hover { transform: scale(1.02); box-shadow: 0 15px 30px rgba(0, 242, 255, 0.4); }
+        .nav-btn { flex: 1; text-align: center; color: #444; cursor: pointer; }
+        .nav-btn.active { color: var(--neon-blue); }
+        .nav-btn i { font-size: 20px; display: block; }
+        .nav-btn span { font-size: 9px; text-transform: uppercase; }
 
-        /* 🧭 Cyber Bottom Nav */
-        .cyber-nav { 
-            position: fixed; bottom: 15px; left: 15px; right: 15px; 
-            background: rgba(0,0,0,0.8); 
-            backdrop-filter: blur(10px);
-            display: flex; height: 70px; align-items: center; 
-            border-radius: 25px; border: 1px solid rgba(255,255,255,0.1);
-            z-index: 1000;
-        }
-        .nav-link { flex: 1; text-align: center; color: #666; cursor: pointer; transition: 0.3s; }
-        .nav-link.active { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
-        .nav-link i { font-size: 22px; display: block; margin-bottom: 4px; }
-        .nav-link span { font-size: 10px; font-weight: bold; text-transform: uppercase; }
+        .page { display: none; padding-top: 10px; }
+        .active-page { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .tab-content { display: none; padding: 30px; animation: slideUp 0.5s ease; }
-        .active-tab { display: block; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* Auth */
+        .auth-box { background: var(--card-bg); padding: 40px; border-radius: 20px; max-width: 350px; margin: 50px auto; border: 1px solid #222; }
+        .digital-input { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #333; border-radius: 8px; background: #000; color: var(--neon-blue); outline: none; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
     <header>
-        <span class="logo-digital">
-            <span class="amde-neon">AMDE</span><span style="color:var(--digital-gold)">-CHAT</span>
-        </span>
-        <div class="quote-digital">
-            "ትላንት በዓለት ላይ ጥበብን ቀረጽን፤ ዛሬ በዲጂታሉ ዓለም 'አምድ-ቻት'ን መሰረትን። ከዛጉዌ ታላቅነት ወደ አምድ የቴክኖሎጂ ምህዳር! 🏰✨"
-        </div>
+        <div class="brand-name"><span class="amde-glow">AMDE</span><span style="color:#444;">-CHAT</span></div>
+        <div class="neon-quote">"ከዛጉዌ ታላቅነት ወደ አምድ የቴክኖሎጂ ምህዳር! 🏰✨"</div>
     </header>
 
-    <div id="auth-page" class="tab-content active-tab">
-        <div class="auth-container">
-            <div class="digital-card">
-                <h2 style="text-align:center; font-family:'Orbitron'; color: #fff; margin-bottom: 30px;">SYSTEM LOGIN</h2>
-                <div id="reg-fields" style="display:none;">
-                    <input type="text" id="fullName" class="digital-input" placeholder="FULL NAME">
-                </div>
-                <div class="phone-box">
-                    <span>+251</span>
-                    <input type="text" id="email" style="background:transparent; border:none; color:white; padding:18px; outline:none; width:100%" placeholder="PHONE OR EMAIL">
-                </div>
-                <input type="password" id="password" class="digital-input" placeholder="PASSWORD">
-                <button class="btn-digital" onclick="handleAuth()" id="auth-btn">ACCESS SYSTEM</button>
-                <p onclick="toggleAuth()" id="toggle-text" style="text-align:center; color: var(--neon-blue); cursor: pointer; margin-top: 25px; font-size: 12px; font-weight: bold;">CREATE NEW ACCOUNT</p>
-            </div>
+    <div id="auth-page" class="page active-page">
+        <div class="auth-box">
+            <h3 style="text-align:center; font-family:'Orbitron'; letter-spacing:2px; color:#555;">LOGIN</h3>
+            <div id="reg-fields" style="display:none;"><input type="text" id="fullName" class="digital-input" placeholder="FULL_NAME"></div>
+            <input type="text" id="email" class="digital-input" placeholder="EMAIL_OR_PHONE">
+            <input type="password" id="password" class="digital-input" placeholder="PASSWORD">
+            <button class="btn-post" style="float:none; width:100%" onclick="handleAuth()" id="auth-btn">INITIALIZE</button>
+            <p onclick="toggleAuth()" id="toggle-text" style="text-align:center; color: #333; cursor: pointer; margin-top: 20px; font-size: 11px;">CREATE_ACCOUNT</p>
         </div>
     </div>
 
-    <div id="home" class="tab-content"><h3>🏠 DIGITAL FEED</h3><div style="height:200px; border:1px dashed #333; border-radius:15px"></div></div>
-    <div id="chat" class="tab-content"><h3>💬 SECURE CHAT</h3></div>
-    <div id="video" class="tab-content"><h3>🎥 STREAMING</h3></div>
-    <div id="settings" class="tab-content"><h3>⚙️ SYSTEM CONFIG</h3><button class="btn-digital" style="background: #ff4757" onclick="logout()">TERMINATE SESSION</button></div>
+    <div id="home" class="page">
+        <div class="post-input-container">
+            <textarea id="postText" class="post-input" placeholder="ምን አዲስ ነገር አለ?"></textarea>
+            <button class="btn-post" onclick="createPost()">POST</button>
+            <div style="clear:both;"></div>
+        </div>
+        <div id="feed" class="feed-container"></div>
+    </div>
 
-    <nav class="cyber-nav" id="nav-bar" style="display:none;">
-        <div class="nav-link active" onclick="showTab('home', this)"><i class="fas fa-th-large"></i><span>Home</span></div>
-        <div class="nav-link" onclick="showTab('chat', this)"><i class="fas fa-comment-slash"></i><span>Chat</span></div>
-        <div class="nav-link" onclick="showTab('video', this)"><i class="fas fa-play"></i><span>Stream</span></div>
-        <div class="nav-link" onclick="showTab('settings', this)"><i class="fas fa-ghost"></i><span>Config</span></div>
+    <div id="chat" class="page"><h4 style="text-align:center; color:var(--neon-blue)">> ENCRYPTED_CONNECTION_PENDING</h4></div>
+    <div id="video" class="page"><h4 style="text-align:center; color:var(--neon-blue)">> STREAM_STATION_OFFLINE</h4></div>
+    <div id="settings" class="page" style="text-align:center;"><button class="btn-post" style="float:none; color:#ff4757; border-color:#ff4757" onclick="logout()">TERMINATE SESSION</button></div>
+
+    <nav class="nav-float" id="nav-bar" style="display:none;">
+        <div class="nav-btn active" onclick="showTab('home', this)"><i class="fas fa-terminal"></i><span>Feed</span></div>
+        <div class="nav-btn" onclick="showTab('chat', this)"><i class="fas fa-satellite-dish"></i><span>Chat</span></div>
+        <div class="nav-btn" onclick="showTab('video', this)"><i class="fas fa-broadcast-tower"></i><span>Live</span></div>
+        <div class="nav-btn" onclick="showTab('settings', this)"><i class="fas fa-user-secret"></i><span>Admin</span></div>
     </nav>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBHcrGqhXf4tkIqPi1sMCFC4zo9XrRoBFE",
@@ -183,45 +194,72 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+        let user = null;
 
-        window.showTab = (id, el) => {
-            document.querySelectorAll('.tab-content').forEach(p => p.classList.remove('active-tab'));
-            document.getElementById(id).classList.add('active-tab');
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            el.classList.add('active');
-        };
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
+        onAuthStateChanged(auth, (u) => {
+            if (u) {
+                user = u;
                 document.getElementById('auth-page').style.display = 'none';
                 document.getElementById('nav-bar').style.display = 'flex';
-                document.getElementById('home').classList.add('active-tab');
+                document.getElementById('home').classList.add('active-page');
+                loadPosts();
             } else {
                 document.getElementById('auth-page').style.display = 'block';
                 document.getElementById('nav-bar').style.display = 'none';
             }
         });
 
+        window.createPost = async () => {
+            const txt = document.getElementById('postText').value;
+            if (!txt.trim()) return;
+            try {
+                await addDoc(collection(db, "posts"), {
+                    text: txt,
+                    userId: user.uid,
+                    username: user.email.split('@')[0],
+                    createdAt: serverTimestamp()
+                });
+                document.getElementById('postText').value = "";
+            } catch (e) { alert(e.message); }
+        };
+
+        function loadPosts() {
+            const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snap) => {
+                const feed = document.getElementById('feed');
+                feed.innerHTML = "";
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    feed.innerHTML += `
+                        <div class="post-card">
+                            <span class="username">@${data.username}</span>
+                            <div class="text">${data.text}</div>
+                        </div>
+                    `;
+                });
+            });
+        }
+
         window.handleAuth = async () => {
             const e = document.getElementById('email').value, p = document.getElementById('password').value;
-            const isReg = document.getElementById('auth-btn').innerText === "CREATE NEW ACCOUNT" || document.getElementById('auth-btn').innerText === "ተመዝገብ";
+            const isReg = document.getElementById('auth-btn').innerText === "ተመዝገብ";
             const finalEmail = e.includes('@') ? e : e + "@amde.com"; 
             try {
-                if (isReg) {
-                    const fn = document.getElementById('fullName').value;
-                    const uc = await createUserWithEmailAndPassword(auth, finalEmail, p);
-                    await setDoc(doc(db, "users", uc.user.uid), { fullName: fn, email: e });
-                } else {
-                    await signInWithEmailAndPassword(auth, finalEmail, p);
-                }
+                isReg ? await createUserWithEmailAndPassword(auth, finalEmail, p) : await signInWithEmailAndPassword(auth, finalEmail, p);
             } catch (err) { alert(err.message); }
         };
 
         window.toggleAuth = () => {
-            const isLogin = document.getElementById('auth-btn').innerText === "ACCESS SYSTEM";
-            document.getElementById('auth-btn').innerText = isLogin ? "ተመዝገብ" : "ACCESS SYSTEM";
+            const isLogin = document.getElementById('auth-btn').innerText === "INITIALIZE";
+            document.getElementById('auth-btn').innerText = isLogin ? "ተመዝገብ" : "INITIALIZE";
             document.getElementById('reg-fields').style.display = isLogin ? "block" : "none";
-            document.getElementById('toggle-text').innerText = isLogin ? "ALREADY REGISTERED? LOGIN" : "CREATE NEW ACCOUNT";
+        };
+
+        window.showTab = (id, el) => {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(id).classList.add('active-page');
+            document.querySelectorAll('.nav-btn').forEach(l => l.classList.remove('active'));
+            el.classList.add('active');
         };
 
         window.logout = () => signOut(auth).then(() => location.reload());
