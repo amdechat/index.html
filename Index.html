@@ -6,79 +6,90 @@
     <title>Amde-Chat</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #1877F2; --bg: #f0f2f5; --white: #ffffff; --gold: #ffc107; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding-bottom: 75px; }
+        :root { --primary: #1877F2; --dark-bg: #1e1e21; --white: #ffffff; --gold: #ffc107; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; padding-bottom: 75px; }
         
-        /* Header with your New Quote */
-        header { 
+        /* Reusable Header Style */
+        .app-header { 
             background: linear-gradient(45deg, #1e1e21, #3a3d42); 
             color: var(--gold); 
-            padding: 20px 15px; 
+            padding: 25px 15px; 
             text-align: center; 
-            font-size: 15px; 
-            line-height: 1.6;
             border-bottom: 4px solid var(--gold);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
-        .app-name {
-            font-size: 22px;
+        .logo-text {
+            font-size: 28px;
             font-weight: bold;
             color: #fff;
-            margin-bottom: 10px;
             display: block;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        .quote-text {
+            font-size: 15px;
+            line-height: 1.6;
+            font-style: italic;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
-        /* Login Card */
-        .auth-card { background: white; margin: 25px 15px; padding: 30px 20px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-        .input-field { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; outline: none; }
-        .phone-input { display: flex; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; margin-bottom: 15px; }
-        .prefix { background: #f0f2f5; padding: 12px; font-weight: bold; color: #333; border-right: 1px solid #ddd; }
+        /* Auth/Login Design */
+        .auth-container { padding: 20px; }
+        .auth-card { background: white; padding: 30px 20px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-top: -30px; position: relative; z-index: 10; }
         
-        /* Navigation Bar */
+        .input-group { width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; outline: none; transition: 0.3s; }
+        .input-group:focus { border-color: var(--primary); box-shadow: 0 0 5px rgba(24,119,242,0.2); }
+        
+        .phone-row { display: flex; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; margin-bottom: 15px; }
+        .phone-row span { background: #f8f9fa; padding: 14px; font-weight: bold; color: #555; border-right: 1px solid #ddd; }
+        
+        /* Navigation */
         .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; border-top: 1px solid #ddd; height: 70px; align-items: center; z-index: 1001; }
-        .nav-item { flex: 1; text-align: center; color: #65676b; cursor: pointer; }
+        .nav-item { flex: 1; text-align: center; color: #65676b; cursor: pointer; transition: 0.2s; }
         .nav-item.active { color: var(--primary); }
         .nav-item i { font-size: 24px; display: block; margin-bottom: 4px; }
         .nav-item span { font-size: 11px; font-weight: bold; }
 
         .page { display: none; padding: 20px; max-width: 600px; margin: auto; animation: fadeIn 0.4s; }
         .active-page { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .btn { background: var(--primary); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; font-size: 17px; cursor: pointer; box-shadow: 0 2px 5px rgba(24,119,242,0.3); }
+        .btn-primary { background: var(--primary); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-weight: bold; font-size: 17px; cursor: pointer; transition: 0.3s; }
+        .btn-primary:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
 
-    <header id="main-nav" style="display:none;">
-        <span class="app-name">አምዴ-ቻት (Amde-Chat)</span>
-        <div>
+    <header class="app-header">
+        <span class="logo-text">Amde-Chat</span>
+        <div class="quote-text">
             "ትላንት በዓለት ላይ ጥበብን ቀረጽን፤ ዛሬ በዲጂታሉ ዓለም 'አምድ-ቻት'ን መሰረትን። ከዛጉዌ ታላቅነት ወደ አምድ የቴክኖሎጂ ምህዳር! 🏰✨"
         </div>
     </header>
 
     <div id="auth-page" class="page active-page">
-        <div class="auth-card">
-            <h2 id="auth-title" style="text-align:center; color: var(--primary); margin-bottom: 25px;">እንኳን ደህና መጡ</h2>
-            <div id="reg-fields" style="display:none;">
-                <input type="text" id="fullName" class="input-field" placeholder="ሙሉ ስም">
+        <div class="auth-container">
+            <div class="auth-card">
+                <h2 id="auth-title" style="text-align:center; color: var(--primary); margin-top: 0;">እንኳን ደህና መጡ</h2>
+                <div id="reg-fields" style="display:none;">
+                    <input type="text" id="fullName" class="input-group" placeholder="ሙሉ ስም">
+                </div>
+                <div class="phone-row">
+                    <span>+251</span>
+                    <input type="text" id="email" style="border:none; width:100%; padding:14px; outline:none; font-size:16px;" placeholder="ስልክ ቁጥር ወይም ኢሜይል">
+                </div>
+                <input type="password" id="password" class="input-group" placeholder="የምስጢር ቁጥር">
+                <button class="btn-primary" id="auth-btn" onclick="handleAuth()">ግባ</button>
+                <p id="toggle-text" onclick="toggleAuth()" style="text-align:center; color: var(--primary); cursor: pointer; margin-top: 20px; font-size: 14px;">አዲስ አካውንት ለመክፈት እዚህ ይጫኑ</p>
             </div>
-            <div class="phone-input">
-                <span class="prefix">+251</span>
-                <input type="text" id="email" style="border:none; width:100%; padding:12px; outline:none; font-size:16px;" placeholder="ስልክ ቁጥር ወይም ኢሜይል">
-            </div>
-            <input type="password" id="password" class="input-field" placeholder="የምስጢር ቁጥር">
-            <button class="btn" id="auth-btn" onclick="handleAuth()">ግባ</button>
-            <p id="toggle-text" onclick="toggleAuth()" style="text-align:center; color: var(--primary); cursor: pointer; margin-top: 25px; font-size: 14px;">አዲስ አካውንት ለመክፈት እዚህ ይጫኑ</p>
         </div>
     </div>
 
-    <div id="home" class="page"><h3>🏠 የዜና ምንጭ (Feed)</h3><div id="feed-container"></div></div>
-    <div id="chat" class="page"><h3>💬 መልዕክቶች</h3><div id="chat-list"></div></div>
-    <div id="video" class="page"><h3>🎥 ቪዲዮዎች</h3><p style="text-align:center; margin-top:50px; color:#888;">በቅርብ ቀን የሚለቀቁ ቪዲዮዎች...</p></div>
-    <div id="settings" class="page"><h3>⚙️ ማስተካከያ</h3><button class="btn" style="background:#f44336" onclick="logout()">ውጣ (Logout)</button></div>
+    <div id="home" class="page"><h3>🏠 የዜና ምንጭ (Feed)</h3><div id="feed-items"></div></div>
+    <div id="chat" class="page"><h3>💬 መልዕክቶች</h3></div>
+    <div id="video" class="page"><h3>🎥 ቪዲዮዎች</h3></div>
+    <div id="settings" class="page"><h3>⚙️ ማስተካከያ</h3><button class="btn-primary" style="background:#f44336" onclick="logout()">ውጣ (Logout)</button></div>
 
     <nav class="bottom-nav" id="bottom-bar" style="display:none;">
         <div class="nav-item active" onclick="showTab('home', this)"><i class="fas fa-home"></i><span>Home</span></div>
@@ -92,7 +103,6 @@
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // ያንተ ትክክለኛ Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyBHcrGqhXf4tkIqPi1sMCFC4zo9XrRoBFE",
             authDomain: "amde-chat-46e14.firebaseapp.com",
@@ -106,7 +116,6 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Tab Navigation Logic
         window.showTab = (id, el) => {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
             document.getElementById(id).classList.add('active-page');
@@ -114,21 +123,17 @@
             el.classList.add('active');
         };
 
-        // Track Auth State
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById('auth-page').style.display = 'none';
-                document.getElementById('main-nav').style.display = 'block';
                 document.getElementById('bottom-bar').style.display = 'flex';
                 document.getElementById('home').classList.add('active-page');
             } else {
                 document.getElementById('auth-page').style.display = 'block';
-                document.getElementById('main-nav').style.display = 'none';
                 document.getElementById('bottom-bar').style.display = 'none';
             }
         });
 
-        // Sign In / Register
         window.handleAuth = async () => {
             const e = document.getElementById('email').value, p = document.getElementById('password').value;
             const isReg = document.getElementById('auth-btn').innerText === "ተመዝገብ";
@@ -136,22 +141,19 @@
             try {
                 if (isReg) {
                     const fn = document.getElementById('fullName').value;
-                    if (!fn) { alert("እባክዎ ሙሉ ስም ያስገቡ።"); return; }
                     const uc = await createUserWithEmailAndPassword(auth, finalEmail, p);
-                    await setDoc(doc(db, "users", uc.user.uid), { fullName: fn, email: e, dateJoined: Date.now() });
+                    await setDoc(doc(db, "users", uc.user.uid), { fullName: fn, email: e });
                 } else {
                     await signInWithEmailAndPassword(auth, finalEmail, p);
                 }
-            } catch (err) { alert("ስህተት ተከስቷል፦ " + err.message); }
+            } catch (err) { alert(err.message); }
         };
 
-        // Switch between Login/Register
         window.toggleAuth = () => {
             const isLogin = document.getElementById('auth-btn').innerText === "ግባ";
             document.getElementById('auth-title').innerText = isLogin ? "መመዝገቢያ" : "እንኳን ደህና መጡ";
             document.getElementById('auth-btn').innerText = isLogin ? "ተመዝገብ" : "ግባ";
             document.getElementById('reg-fields').style.display = isLogin ? "block" : "none";
-            document.getElementById('toggle-text').innerText = isLogin ? "አካውንት አለኝ? ግባ" : "አዲስ አካውንት ለመክፈት እዚህ ይጫኑ";
         };
 
         window.logout = () => signOut(auth).then(() => location.reload());
