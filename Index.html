@@ -3,171 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amde-Chat Radiant Brand</title>
+    <title>Amde-Chat Rainbow Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Noto+Sans+Ethiopic:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Noto+Sans+Ethiopic:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
-            --neon-blue: #00f2ff;
-            --bright-gold: #ffcc00;
-            --deep-space: #050a15; /* ጥቁር ሳይሆን ጥልቅ ሰማያዊ */
-            --electric-glow: 0 0 15px rgba(0, 242, 255, 0.6);
+            --gold-bg: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            --bright-blue: #007bff;
+            --bright-green: #28a745;
+            --soft-bg: #fdfdfd; /* ጥቁር ያልሆነ ጀርባ */
         }
 
         body { 
             font-family: 'Noto Sans Ethiopic', sans-serif; 
-            background-color: var(--deep-space);
-            background: linear-gradient(180deg, #0a1128 0%, #050a15 100%);
-            color: #ffffff;
+            background-color: var(--soft-bg);
+            color: #333;
             margin: 0;
             padding-bottom: 100px;
         }
 
-        /* 🌌 የሚያበራ Header */
+        /* 🌈 በተለያየ ቀለም የሚያበራው ራስጌ */
         header { 
-            padding: 50px 20px;
+            padding: 40px 20px;
             text-align: center;
-            border-bottom: 2px solid var(--neon-blue);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
-            background: rgba(255, 255, 255, 0.05);
+            background: #fff;
+            border-bottom: 5px solid;
+            border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet) 1;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .brand-name {
             font-family: 'Orbitron', sans-serif;
-            font-size: 42px;
+            font-size: 45px;
             font-weight: 900;
-            letter-spacing: 8px;
+            letter-spacing: 5px;
             display: block;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: rainbow-glow 3s linear infinite;
+        }
+
+        @keyframes rainbow-glow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        /* 👑 በጣም በሚያምር background ጥቅስ */
+        .premium-quote {
+            font-size: 17px;
+            line-height: 1.8;
             color: #fff;
-            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+            max-width: 550px;
+            margin: 25px auto 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(245, 87, 108, 0.4);
+            border: 2px solid rgba(255,255,255,0.2);
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
-        .neon-quote {
-            font-size: 16px;
-            color: var(--bright-gold);
-            max-width: 500px;
-            margin: 20px auto 0;
-            padding: 15px;
-            background: rgba(255, 204, 0, 0.1);
-            border: 1px solid var(--bright-gold);
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }
-            50% { transform: scale(1.02); box-shadow: 0 0 20px rgba(255, 204, 0, 0.5); }
-            100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }
-        }
-
-        /* 🔒 Login Box (የሚያበራ) */
-        .auth-box { 
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border: 2px solid var(--neon-blue);
-            padding: 40px 25px; 
+        /* 🔒 Login Box (ባለ ቀለም) */
+        .auth-card { 
+            background: #fff;
             border-radius: 25px; 
             max-width: 380px;
             margin: 40px auto;
-            box-shadow: var(--electric-glow);
+            padding: 40px 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-top: 8px solid var(--bright-blue);
         }
 
-        .digital-input { 
+        .styled-input { 
             width: 100%; padding: 15px; margin-bottom: 15px; 
-            border: 2px solid rgba(0, 242, 255, 0.3); border-radius: 12px; 
-            background: rgba(0, 0, 0, 0.5); color: #fff;
-            font-family: 'Orbitron', sans-serif; outline: none; box-sizing: border-box;
+            border: 1px solid #ddd; border-radius: 10px; 
+            background: #f9f9f9; color: #333;
+            outline: none; box-sizing: border-box; font-size: 16px;
         }
-        .digital-input:focus { border-color: var(--neon-blue); box-shadow: var(--electric-glow); }
+        .styled-input:focus { border-color: var(--bright-blue); background: #fff; }
 
-        .btn-access { 
-            background: var(--neon-blue); border: none;
-            color: #000; padding: 15px; width: 100%; 
-            border-radius: 12px; font-weight: 900; cursor: pointer;
+        .btn-colorful { 
+            background: linear-gradient(to right, var(--bright-blue), #00c6ff); 
+            border: none; color: #fff; padding: 15px; width: 100%; 
+            border-radius: 10px; font-weight: 700; cursor: pointer;
             text-transform: uppercase; letter-spacing: 2px;
-            font-family: 'Orbitron', sans-serif;
-            box-shadow: var(--electric-glow);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
         }
 
         /* 📝 Post Area */
-        .post-area { max-width: 480px; margin: 20px auto; padding: 0 15px; }
+        .post-container { max-width: 500px; margin: 20px auto; padding: 0 15px; }
         .post-input-box { 
-            background: rgba(255, 255, 255, 0.08); 
-            border: 1px solid var(--neon-blue); 
-            border-radius: 15px; padding: 15px; margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            background: #fff; 
+            border: 1px solid #eee; 
+            border-radius: 15px; padding: 20px; margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--bright-green);
         }
-        .post-input-box textarea { width: 100%; background: transparent; border: none; color: #fff; outline: none; font-size: 16px; }
+        .post-input-box textarea { width: 100%; background: transparent; border: none; color: #333; outline: none; font-size: 16px; resize: none; }
 
         .post-card { 
-            background: rgba(255, 255, 255, 0.05); 
-            border: 1px solid rgba(0, 242, 255, 0.2);
+            background: #fff; 
+            border: 1px solid #f0f0f0;
             padding: 20px; border-radius: 15px; margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border-left: 5px solid var(--bright-blue);
         }
-        .post-user { color: var(--bright-gold); font-weight: bold; margin-bottom: 8px; display: block; }
+        .post-user { color: #f5576c; font-weight: bold; margin-bottom: 8px; display: block; font-size: 14px; }
 
-        /* 🧭 Nav */
-        .nav-float { 
+        /* 🧭 Floating Nav (ባለ ቀለም) */
+        .colorful-nav { 
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             width: 90%; max-width: 400px;
-            background: rgba(10, 20, 40, 0.9); 
-            border: 2px solid var(--neon-blue);
-            display: flex; height: 70px; align-items: center; 
-            border-radius: 35px; box-shadow: var(--electric-glow);
+            background: #fff;
+            border: 1px solid #eee;
+            display: flex; height: 75px; align-items: center; 
+            border-radius: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 1000;
         }
-        .nav-btn { flex: 1; text-align: center; color: #778899; cursor: pointer; }
-        .nav-btn.active { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
+        .nav-link { flex: 1; text-align: center; color: #bbb; cursor: pointer; transition: 0.3s; }
+        .nav-link.active { color: var(--bright-blue); transform: scale(1.1); }
+        .nav-link i { font-size: 24px; display: block; margin-bottom: 4px; }
+        .nav-link span { font-size: 11px; font-weight: 700; }
 
-        .page { display: none; padding: 20px; animation: slideUp 0.5s ease; }
-        .active-page { display: block; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .tab { display: none; padding: 20px; animation: slideIn 0.5s; }
+        .active-tab { display: block; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <header>
         <div class="brand-name">AMDE-CHAT</div>
-        <div class="neon-quote">
-            "ትላንት በዓለት ላይ ጥበብን ቀረጽን፤ ዛሬ በዲጂታሉ ዓለም 'አምድ-ቻት'ን መሰረትን። 🏰✨"
+        <div class="premium-quote">
+            "ትላንት በዓለት ላይ ጥበብን ቀረጽን፤ ዛሬ በዲጂታሉ ዓለም 'አምድ-ቻት'ን መሰረትን። ከዛጉዌ ታላቅነት ወደ አምድ የቴክኖሎጂ ምህዳር! 🏰✨"
         </div>
     </header>
 
-    <div id="auth-page" class="page active-page">
-        <div class="auth-box">
-            <h3 style="text-align:center; color: var(--neon-blue); font-family: 'Orbitron';">WELCOME_USER</h3>
-            <div id="reg-fields" style="display:none;">
-                <input type="text" id="fullName" class="digital-input" placeholder="FULL NAME">
-            </div>
-            <input type="text" id="email" class="digital-input" placeholder="EMAIL / PHONE">
-            <input type="password" id="password" class="digital-input" placeholder="PASSWORD">
-            <button class="btn-access" onclick="handleAuth()" id="auth-btn">ENTER SYSTEM</button>
-            <p onclick="toggleAuth()" style="text-align:center; color: #fff; cursor: pointer; margin-top: 20px; font-size: 13px; text-decoration: underline;">CREATE ACCOUNT</p>
+    <div id="auth-page" class="tab active-tab">
+        <div class="auth-card">
+            <h2 style="text-align:center; color: #333; margin-top: 0;">እንኳን ደህና መጡ</h2>
+            <div id="reg-fields" style="display:none;"><input type="text" id="fullName" class="styled-input" placeholder="ሙሉ ስም"></div>
+            <input type="text" id="email" class="styled-input" placeholder="ስልክ ቁጥር ወይም ኢሜይል">
+            <input type="password" id="password" class="styled-input" placeholder="የምስጢር ቁጥር">
+            <button class="btn-colorful" onclick="handleAuth()" id="auth-btn">ግባ</button>
+            <p onclick="toggleAuth()" id="toggle-text" style="text-align:center; color: var(--bright-blue); cursor: pointer; margin-top: 25px; font-weight: 700; font-size: 14px;">አዲስ አካውንት መክፈት እፈልጋለሁ</p>
         </div>
     </div>
 
-    <div id="home" class="page">
-        <div class="post-area">
+    <div id="home" class="tab">
+        <div class="post-container">
             <div class="post-input-box">
                 <textarea id="postTxt" placeholder="ምን አዲስ መረጃ አለ?"></textarea>
-                <button class="btn-access" style="width: 120px; padding: 8px; float: right;" onclick="createPost()">POST</button>
+                <button class="btn-colorful" style="width: 120px; padding: 10px; float: right;" onclick="createPost()">POST</button>
                 <div style="clear:both;"></div>
             </div>
             <div id="feed"></div>
         </div>
     </div>
 
-    <div id="chat" class="page"><h4 style="color:var(--neon-blue); text-align:center;">> CHAT_ROOM_ACTIVE</h4></div>
-    <div id="video" class="page"><h4 style="color:var(--neon-blue); text-align:center;">> LIVE_STREAM_STATION</h4></div>
-    <div id="settings" class="page" style="text-align:center;"><button class="btn-access" style="background:#ff4757; width: auto;" onclick="logout()">LOGOUT</button></div>
+    <div id="chat" class="tab"><h3 style="color:var(--bright-blue); text-align:center;">💬 መልዕክቶች</h3></div>
+    <div id="video" class="tab"><h3 style="color:var(--bright-blue); text-align:center;">🎥 የቀጥታ ቪዲዮ</h3></div>
+    <div id="settings" class="tab" style="text-align:center;"><button class="btn-colorful" style="background:#ff4757; width: auto;" onclick="logout()">ውጣ (Logout)</button></div>
 
-    <nav class="nav-float" id="nav-bar" style="display:none;">
-        <div class="nav-btn active" onclick="showTab('home', this)"><i class="fas fa-home"></i><span>Feed</span></div>
-        <div class="nav-btn" onclick="showTab('chat', this)"><i class="fas fa-comment-dots"></i><span>Chat</span></div>
-        <div class="nav-btn" onclick="showTab('video', this)"><i class="fas fa-play-circle"></i><span>Live</span></div>
-        <div class="nav-btn" onclick="showTab('settings', this)"><i class="fas fa-cog"></i><span>Set</span></div>
+    <nav class="colorful-nav" id="nav-bar" style="display:none;">
+        <div class="nav-link active" onclick="showTab('home', this)"><i class="fas fa-rss"></i><span>Feed</span></div>
+        <div class="nav-link" onclick="showTab('chat', this)"><i class="fas fa-comments"></i><span>Chat</span></div>
+        <div class="nav-link" onclick="showTab('video', this)"><i class="fas fa-play-circle"></i><span>Live</span></div>
+        <div class="nav-link" onclick="showTab('settings', this)"><i class="fas fa-user-cog"></i><span>Set</span></div>
     </nav>
 
     <script type="module">
@@ -194,7 +201,7 @@
                 user = u;
                 document.getElementById('auth-page').style.display = 'none';
                 document.getElementById('nav-bar').style.display = 'flex';
-                document.getElementById('home').classList.add('active-page');
+                document.getElementById('home').classList.add('active-tab');
                 loadFeed();
             } else {
                 document.getElementById('auth-page').style.display = 'block';
@@ -240,15 +247,16 @@
         };
 
         window.toggleAuth = () => {
-            const isLogin = document.getElementById('auth-btn').innerText === "ENTER SYSTEM";
-            document.getElementById('auth-btn').innerText = isLogin ? "ተመዝገብ" : "ENTER SYSTEM";
+            const isLogin = document.getElementById('auth-btn').innerText === "ግባ";
+            document.getElementById('auth-btn').innerText = isLogin ? "ተመዝገብ" : "ግባ";
+            document.getElementById('toggle-text').innerText = isLogin ? "አካውንት አለኝ? ግባ" : "አዲስ አካውንት መክፈት እፈልጋለሁ";
             document.getElementById('reg-fields').style.display = isLogin ? "block" : "none";
         };
 
         window.showTab = (id, el) => {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
-            document.getElementById(id).classList.add('active-page');
-            document.querySelectorAll('.nav-btn').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(p => p.classList.remove('active-tab'));
+            document.getElementById(id).classList.add('active-tab');
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             el.classList.add('active');
         };
 
