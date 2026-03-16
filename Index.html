@@ -3,95 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amde-Chat Multimedia Edition</title>
+    <title>Amde-Chat Final Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Noto+Sans+Ethiopic:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root { 
             --rainbow: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            --premium-grad: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --bright-blue: #007bff;
-            --soft-bg: #f8f9fa;
         }
 
-        body { font-family: 'Noto Sans Ethiopic', sans-serif; background: var(--soft-bg); margin: 0; padding-bottom: 90px; }
+        body { 
+            font-family: 'Noto Sans Ethiopic', sans-serif; 
+            background: #ffffff; /* ጥቁር ያልሆነ ንጹህ ጀርባ */
+            margin: 0; 
+            padding-bottom: 90px;
+            color: #333;
+        }
 
-        /* 🌈 Header */
-        header { padding: 30px 15px; text-align: center; background: #fff; border-bottom: 4px solid; border-image: var(--rainbow) 1; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .brand-name { font-family: 'Orbitron'; font-size: 35px; background: var(--rainbow); -webkit-background-clip: text; color: transparent; animation: shift 3s infinite linear; }
-        @keyframes shift { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+        /* 🌈 ባለቀለም Header */
+        header { 
+            padding: 25px 15px; 
+            text-align: center; 
+            background: #fff; 
+            border-bottom: 5px solid; 
+            border-image: var(--rainbow) 1;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .brand-name { 
+            font-family: 'Orbitron'; 
+            font-size: 38px; 
+            background: var(--rainbow); 
+            -webkit-background-clip: text; 
+            color: transparent; 
+            animation: rainbow-anim 3s infinite linear;
+            font-weight: 900;
+        }
+
+        @keyframes rainbow-anim { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
         
-        .premium-quote { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; padding: 15px; border-radius: 12px; margin: 15px auto; max-width: 500px; font-weight: bold; }
+        /* 👑 ጥቅሱ በሚያምር Background */
+        .premium-quote { 
+            background: var(--premium-grad); 
+            color: #fff; 
+            padding: 20px; 
+            border-radius: 15px; 
+            margin: 20px auto; 
+            max-width: 500px; 
+            font-weight: bold; 
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.3);
+        }
 
         /* 📝 Post Box */
-        .post-box { background: #fff; border-radius: 15px; padding: 15px; margin: 15px auto; max-width: 500px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .post-box textarea { width: 100%; border: none; outline: none; font-size: 16px; resize: none; }
-        .file-label { color: var(--bright-blue); cursor: pointer; font-size: 20px; margin-right: 15px; }
-        .btn-post { background: var(--bright-blue); color: #fff; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; float: right; cursor: pointer; }
+        .post-box { 
+            background: #fff; 
+            border-radius: 15px; 
+            padding: 15px; 
+            margin: 20px auto; 
+            max-width: 500px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid #eee;
+        }
+        .post-box textarea { width: 100%; border: none; outline: none; font-size: 16px; resize: none; background: transparent; }
+        .post-actions { border-top: 1px solid #eee; padding-top: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .file-btn { color: #f5576c; cursor: pointer; font-size: 22px; }
+        .btn-post { background: var(--bright-blue); color: #fff; border: none; padding: 10px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,123,255,0.3); }
 
         /* 🖼️ Feed Cards */
-        .feed-card { background: #fff; border-radius: 15px; padding: 15px; margin: 15px auto; max-width: 500px; border-left: 5px solid var(--bright-blue); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .feed-card img, .feed-card video { width: 100%; border-radius: 10px; margin-top: 10px; }
-        .post-user { font-weight: bold; color: #f5576c; display: block; margin-bottom: 5px; }
+        .feed-card { background: #fff; border-radius: 15px; padding: 20px; margin: 15px auto; max-width: 500px; border-left: 6px solid var(--bright-blue); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .post-user { font-weight: bold; color: #f5576c; margin-bottom: 10px; display: block; }
 
-        /* 💬 Chat System */
-        .chat-container { height: 60vh; overflow-y: auto; padding: 10px; background: #fff; border-radius: 15px; max-width: 500px; margin: auto; }
-        .msg { padding: 10px 15px; border-radius: 15px; margin-bottom: 8px; max-width: 80%; }
-        .msg.sent { background: var(--bright-blue); color: #fff; margin-left: auto; }
-        .msg.recv { background: #eee; color: #333; }
+        /* 💬 Chat */
+        .chat-area { height: 65vh; overflow-y: auto; padding: 15px; background: #fdfdfd; border-radius: 15px; max-width: 500px; margin: auto; border: 1px solid #eee; }
+        .msg { padding: 12px 18px; border-radius: 20px; margin-bottom: 10px; max-width: 75%; font-size: 15px; }
+        .msg.sent { background: var(--bright-blue); color: #fff; margin-left: auto; border-bottom-right-radius: 2px; }
+        .msg.recv { background: #f0f0f0; color: #333; border-bottom-left-radius: 2px; }
 
         /* 🧭 Nav */
-        nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; height: 70px; border-top: 1px solid #ddd; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
-        .nav-item { flex: 1; text-align: center; padding-top: 12px; color: #aaa; cursor: pointer; }
-        .nav-item.active { color: var(--bright-blue); }
-        .nav-item i { font-size: 22px; display: block; }
+        nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; height: 75px; border-top: 1px solid #eee; box-shadow: 0 -4px 10px rgba(0,0,0,0.05); z-index: 100; }
+        .nav-item { flex: 1; text-align: center; padding-top: 15px; color: #ccc; cursor: pointer; transition: 0.3s; }
+        .nav-item.active { color: var(--bright-blue); transform: scale(1.1); }
+        .nav-item i { font-size: 24px; display: block; }
 
-        .page { display: none; padding: 10px; animation: fadeIn 0.4s; }
-        .active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .page { display: none; padding: 10px; animation: fadeIn 0.4s ease; }
+        .active-page { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
 <header>
     <div class="brand-name">AMDE-CHAT</div>
-    <div class="premium-quote">"ከዛጉዌ ጥበብ ወደ ዲጂታል አምድ! 🏰✨"</div>
+    <div class="premium-quote">"ትላንት በዓለት ላይ ጥበብን ቀረጽን፤ ዛሬ በዲጂታሉ ዓለም 'አምድ-ቻት'ን መሰረትን። 🏰✨"</div>
 </header>
 
-<div id="auth-page" class="page active">
-    <div style="max-width:350px; margin: 50px auto; background:#fff; padding:30px; border-radius:20px; text-align:center;">
-        <h2 id="auth-title">መግቢያ</h2>
-        <input type="email" id="email" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:10px;" placeholder="ኢሜይል">
-        <input type="password" id="password" style="width:100%; padding:12px; margin:10px 0; border:1px solid #ddd; border-radius:10px;" placeholder="የምስጢር ቁጥር">
-        <button onclick="handleAuth()" class="btn-post" style="float:none; width:100%; margin-top:10px;">ግባ</button>
-        <p onclick="toggleAuth()" style="color:var(--bright-blue); cursor:pointer; margin-top:15px;">አዲስ አካውንት መክፈት</p>
+<div id="auth-page" class="page active-page">
+    <div style="max-width:380px; margin: 40px auto; background:#fff; padding:35px; border-radius:25px; text-align:center; box-shadow:0 15px 35px rgba(0,0,0,0.1);">
+        <h2 id="auth-title" style="margin-bottom:25px; color:#333;">እንኳን ደህና መጡ</h2>
+        <input type="email" id="email" style="width:100%; padding:15px; margin-bottom:15px; border:1px solid #eee; border-radius:12px; box-sizing:border-box;" placeholder="ኢሜይል">
+        <input type="password" id="password" style="width:100%; padding:15px; margin-bottom:20px; border:1px solid #eee; border-radius:12px; box-sizing:border-box;" placeholder="የምስጢር ቁጥር">
+        <button onclick="handleAuth()" class="btn-post" style="width:100%; float:none; padding:15px;">ግባ</button>
+        <p onclick="toggleAuth()" style="color:var(--bright-blue); cursor:pointer; margin-top:20px; font-weight:bold;">አዲስ አካውንት ለመክፈት</p>
     </div>
 </div>
 
 <div id="home" class="page">
     <div class="post-box">
-        <textarea id="postTxt" placeholder="ምን አዲስ ነገር አለ?"></textarea>
-        <hr style="border:0.5px solid #eee;">
-        <label class="file-label"><i class="fas fa-camera"></i><input type="file" id="postFile" hidden accept="image/*,video/*"></label>
-        <button class="btn-post" onclick="uploadPost()">POST</button>
-        <div style="clear:both;"></div>
+        <textarea id="postTxt" rows="3" placeholder="ምን አዲስ ነገር አለ?"></textarea>
+        <div class="post-actions">
+            <label class="file-btn"><i class="fas fa-images"></i><input type="file" id="postFile" hidden accept="image/*,video/*"></label>
+            <button class="btn-post" onclick="uploadPost()">POST</button>
+        </div>
     </div>
     <div id="feed-container"></div>
 </div>
 
 <div id="chat" class="page">
-    <div class="chat-container" id="chat-box"></div>
-    <div style="max-width:500px; margin:10px auto; display:flex;">
-        <input type="text" id="msgInput" style="flex:1; padding:12px; border-radius:20px; border:1px solid #ddd;" placeholder="መልዕክት ይጻፉ...">
-        <button onclick="sendMsg()" style="background:var(--bright-blue); border:none; color:#fff; width:50px; height:45px; border-radius:50%; margin-left:5px;"><i class="fas fa-paper-plane"></i></button>
+    <div class="chat-area" id="chat-box"></div>
+    <div style="max-width:500px; margin:15px auto; display:flex; gap:10px;">
+        <input type="text" id="msgInput" style="flex:1; padding:15px; border-radius:30px; border:1px solid #eee; outline:none;" placeholder="መልዕክት ይጻፉ...">
+        <button onclick="sendMsg()" style="background:var(--bright-blue); color:#fff; border:none; width:50px; height:50px; border-radius:50%; cursor:pointer;"><i class="fas fa-paper-plane"></i></button>
     </div>
 </div>
 
 <nav id="navbar" style="display:none;">
-    <div class="nav-item active" onclick="showTab('home', this)"><i class="fas fa-home"></i><span>Feed</span></div>
-    <div class="nav-item" onclick="showTab('chat', this)"><i class="fas fa-comments"></i><span>Chat</span></div>
-    <div class="nav-item" onclick="showTab('video', this)"><i class="fas fa-play-circle"></i><span>Live</span></div>
-    <div class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i><span>Exit</span></div>
+    <div class="nav-item active" onclick="showTab('home', this)"><i class="fas fa-th-large"></i><span>Feed</span></div>
+    <div class="nav-item" onclick="showTab('chat', this)"><i class="fas fa-comment-dots"></i><span>Chat</span></div>
+    <div class="nav-item" onclick="logout()"><i class="fas fa-power-off"></i><span>Exit</span></div>
 </nav>
 
 <script type="module">
@@ -116,31 +157,26 @@
     onAuthStateChanged(auth, user => {
         if(user) {
             currentUser = user;
-            document.getElementById('auth-page').classList.remove('active');
+            document.getElementById('auth-page').classList.remove('active-page');
             document.getElementById('navbar').style.display = 'flex';
-            document.getElementById('home').classList.add('active');
+            document.getElementById('home').classList.add('active-page');
             loadFeed();
             loadChat();
         } else {
-            document.getElementById('auth-page').classList.add('active');
+            document.getElementById('auth-page').classList.add('active-page');
             document.getElementById('navbar').style.display = 'none';
         }
     });
 
-    // Post with Photo/Video Simulation
     window.uploadPost = async () => {
         const txt = document.getElementById('postTxt').value;
         const file = document.getElementById('postFile').files[0];
         if(!txt && !file) return;
-
-        // ማሳሰቢያ፡ እውነተኛ ፋይል ሰርቨር ላይ ለመጫን Firebase Storage ያስፈልጋል። 
-        // ለጊዜው በURL መልክ ጽሁፉን እንልካለን።
         await addDoc(collection(db, "posts"), {
             text: txt,
             user: currentUser.email.split('@')[0],
             time: serverTimestamp(),
-            hasFile: file ? true : false,
-            fileType: file ? file.type : null
+            hasMedia: file ? true : false
         });
         document.getElementById('postTxt').value = "";
     };
@@ -153,14 +189,13 @@
                 const d = doc.data();
                 cont.innerHTML += `<div class="feed-card">
                     <span class="post-user">@${d.user}</span>
-                    <p>${d.text}</p>
-                    ${d.hasFile ? '<div style="background:#eee; padding:20px; text-align:center; border-radius:10px;">📷 Media Attached</div>' : ''}
+                    <p style="margin:0; font-size:16px; line-height:1.6;">${d.text}</p>
+                    ${d.hasMedia ? '<div style="margin-top:10px; color:#aaa; font-size:12px;">📷 Media Attached</div>' : ''}
                 </div>`;
             });
         });
     }
 
-    // Chat System
     window.sendMsg = async () => {
         const m = document.getElementById('msgInput').value;
         if(!m.trim()) return;
@@ -197,13 +232,13 @@
     };
 
     window.showTab = (id, el) => {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+        document.getElementById(id).classList.add('active-page');
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
         el.classList.add('active');
     };
 
-    window.logout = () => signOut(auth);
+    window.logout = () => signOut(auth).then(() => location.reload());
 </script>
 </body>
 </html>
