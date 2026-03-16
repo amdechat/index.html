@@ -5,97 +5,150 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amde-Chat</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@400;700&family=Noto+Sans+Ethiopic:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --primary: #1877F2; --dark-bg: #1e1e21; --white: #ffffff; --gold: #ffc107; }
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; padding-bottom: 75px; }
-        
-        /* Reusable Header Style */
-        .app-header { 
-            background: linear-gradient(45deg, #1e1e21, #3a3d42); 
-            color: var(--gold); 
-            padding: 25px 15px; 
-            text-align: center; 
-            border-bottom: 4px solid var(--gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        :root { 
+            --primary: #1877F2; 
+            --gold: #ffc107; 
+            --dark-bg: #121212; 
+            --white: #ffffff;
         }
+
+        body { 
+            font-family: 'Inter', 'Noto Sans Ethiopic', sans-serif; 
+            background: #f0f2f5; 
+            margin: 0; 
+            padding-bottom: 75px; 
+        }
+        
+        /* 🏰 የዛጉዌ እና የአምዴ-ቻት ዋና ራስጌ */
+        .app-header { 
+            background: linear-gradient(135deg, #1a1a1d 0%, #3a3d42 100%); 
+            color: var(--gold); 
+            padding: 30px 15px; 
+            text-align: center; 
+            border-bottom: 5px solid var(--gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
         .logo-text {
-            font-size: 28px;
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
             font-weight: bold;
             color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
             display: block;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
         }
+
+        .quote-container {
+            position: relative;
+            max-width: 550px;
+            margin: 0 auto;
+            padding: 15px;
+            border-top: 1px solid rgba(255, 193, 7, 0.3);
+            border-bottom: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
         .quote-text {
-            font-size: 15px;
-            line-height: 1.6;
-            font-style: italic;
-            max-width: 500px;
+            font-size: 16px;
+            line-height: 1.8;
+            font-weight: 500;
+            color: var(--gold);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        /* 🔒 መግቢያ ካርድ ዲዛይን */
+        .auth-container { padding: 0 20px; margin-top: -25px; }
+        .auth-card { 
+            background: white; 
+            padding: 35px 25px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15); 
+            max-width: 400px;
             margin: 0 auto;
         }
 
-        /* Auth/Login Design */
-        .auth-container { padding: 20px; }
-        .auth-card { background: white; padding: 30px 20px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-top: -30px; position: relative; z-index: 10; }
+        .input-group { 
+            width: 100%; padding: 15px; margin-bottom: 20px; 
+            border: 2px solid #edf2f7; border-radius: 12px; 
+            font-size: 16px; outline: none; transition: 0.4s;
+        }
+        .input-group:focus { border-color: var(--primary); background: #f8fbff; }
         
-        .input-group { width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; outline: none; transition: 0.3s; }
-        .input-group:focus { border-color: var(--primary); box-shadow: 0 0 5px rgba(24,119,242,0.2); }
+        .phone-row { 
+            display: flex; border: 2px solid #edf2f7; 
+            border-radius: 12px; overflow: hidden; margin-bottom: 20px; 
+        }
+        .phone-row span { background: #f8f9fa; padding: 15px; font-weight: bold; color: #4a5568; border-right: 2px solid #edf2f7; }
         
-        .phone-row { display: flex; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; margin-bottom: 15px; }
-        .phone-row span { background: #f8f9fa; padding: 14px; font-weight: bold; color: #555; border-right: 1px solid #ddd; }
-        
-        /* Navigation */
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; border-top: 1px solid #ddd; height: 70px; align-items: center; z-index: 1001; }
-        .nav-item { flex: 1; text-align: center; color: #65676b; cursor: pointer; transition: 0.2s; }
+        .btn-primary { 
+            background: linear-gradient(to right, #1877F2, #0056b3); 
+            color: white; border: none; padding: 16px; width: 100%; 
+            border-radius: 12px; font-weight: bold; font-size: 18px; 
+            cursor: pointer; box-shadow: 0 4px 15px rgba(24,119,242,0.4);
+            transition: 0.3s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(24,119,242,0.5); }
+
+        /* 📱 የታችኛው መቆጣጠሪያ (Bottom Nav) */
+        .bottom-nav { 
+            position: fixed; bottom: 0; width: 100%; background: white; 
+            display: flex; border-top: 1px solid #eee; height: 75px; 
+            align-items: center; z-index: 1001; 
+        }
+        .nav-item { flex: 1; text-align: center; color: #a0aec0; cursor: pointer; }
         .nav-item.active { color: var(--primary); }
-        .nav-item i { font-size: 24px; display: block; margin-bottom: 4px; }
-        .nav-item span { font-size: 11px; font-weight: bold; }
+        .nav-item i { font-size: 26px; display: block; margin-bottom: 5px; }
+        .nav-item span { font-size: 12px; font-weight: 700; }
 
-        .page { display: none; padding: 20px; max-width: 600px; margin: auto; animation: fadeIn 0.4s; }
+        .page { display: none; padding: 25px; max-width: 600px; margin: auto; animation: fadeInUp 0.5s ease-out; }
         .active-page { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .btn-primary { background: var(--primary); color: white; border: none; padding: 16px; width: 100%; border-radius: 10px; font-weight: bold; font-size: 17px; cursor: pointer; transition: 0.3s; }
-        .btn-primary:active { transform: scale(0.98); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <header class="app-header">
         <span class="logo-text">Amde-Chat</span>
-        <div class="quote-text">
-            "ትላንት በዓለት ላይ ጥበብን ቀረጽን፤ ዛሬ በዲጂታሉ ዓለም 'አምድ-ቻት'ን መሰረትን። ከዛጉዌ ታላቅነት ወደ አምድ የቴክኖሎጂ ምህዳር! 🏰✨"
+        <div class="quote-container">
+            <div class="quote-text">
+                "ትላንት በዓለት ላይ ጥበብን ቀረጽን፤ ዛሬ በዲጂታሉ ዓለም 'አምድ-ቻት'ን መሰረትን። ከዛጉዌ ታላቅነት ወደ አምድ የቴክኖሎጂ ምህዳር! 🏰✨"
+            </div>
         </div>
     </header>
 
     <div id="auth-page" class="page active-page">
         <div class="auth-container">
             <div class="auth-card">
-                <h2 id="auth-title" style="text-align:center; color: var(--primary); margin-top: 0;">እንኳን ደህና መጡ</h2>
+                <h2 style="text-align:center; color: #2d3748; margin-top: 0; font-size: 24px;">እንኳን ደህና መጡ</h2>
                 <div id="reg-fields" style="display:none;">
                     <input type="text" id="fullName" class="input-group" placeholder="ሙሉ ስም">
                 </div>
                 <div class="phone-row">
                     <span>+251</span>
-                    <input type="text" id="email" style="border:none; width:100%; padding:14px; outline:none; font-size:16px;" placeholder="ስልክ ቁጥር ወይም ኢሜይል">
+                    <input type="text" id="email" style="border:none; width:100%; padding:15px; outline:none; font-size:16px;" placeholder="ስልክ ቁጥር ወይም ኢሜይል">
                 </div>
                 <input type="password" id="password" class="input-group" placeholder="የምስጢር ቁጥር">
-                <button class="btn-primary" id="auth-btn" onclick="handleAuth()">ግባ</button>
-                <p id="toggle-text" onclick="toggleAuth()" style="text-align:center; color: var(--primary); cursor: pointer; margin-top: 20px; font-size: 14px;">አዲስ አካውንት ለመክፈት እዚህ ይጫኑ</p>
+                <button class="btn-primary" onclick="handleAuth()" id="auth-btn">ግባ</button>
+                <p onclick="toggleAuth()" id="toggle-text" style="text-align:center; color: var(--primary); cursor: pointer; margin-top: 25px; font-weight: 600;">አዲስ አካውንት ለመክፈት እዚህ ይጫኑ</p>
             </div>
         </div>
     </div>
 
-    <div id="home" class="page"><h3>🏠 የዜና ምንጭ (Feed)</h3><div id="feed-items"></div></div>
+    <div id="home" class="page"><h3>🏠 የዜና ምንጭ</h3></div>
     <div id="chat" class="page"><h3>💬 መልዕክቶች</h3></div>
     <div id="video" class="page"><h3>🎥 ቪዲዮዎች</h3></div>
-    <div id="settings" class="page"><h3>⚙️ ማስተካከያ</h3><button class="btn-primary" style="background:#f44336" onclick="logout()">ውጣ (Logout)</button></div>
+    <div id="settings" class="page"><h3>⚙️ ማስተካከያ</h3><button class="btn-primary" style="background:#e53e3e" onclick="logout()">ውጣ (Logout)</button></div>
 
     <nav class="bottom-nav" id="bottom-bar" style="display:none;">
         <div class="nav-item active" onclick="showTab('home', this)"><i class="fas fa-home"></i><span>Home</span></div>
-        <div class="nav-item" onclick="showTab('chat', this)"><i class="fas fa-comments"></i><span>Chat</span></div>
+        <div class="nav-item" onclick="showTab('chat', this)"><i class="fas fa-comment-alt"></i><span>Chat</span></div>
         <div class="nav-item" onclick="showTab('video', this)"><i class="fas fa-play-circle"></i><span>Video</span></div>
-        <div class="nav-item" onclick="showTab('settings', this)"><i class="fas fa-user-cog"></i><span>Settings</span></div>
+        <div class="nav-item" onclick="showTab('settings', this)"><i class="fas fa-user-circle"></i><span>Profile</span></div>
     </nav>
 
     <script type="module">
@@ -146,7 +199,7 @@
                 } else {
                     await signInWithEmailAndPassword(auth, finalEmail, p);
                 }
-            } catch (err) { alert(err.message); }
+            } catch (err) { alert("ስህተት፦ " + err.message); }
         };
 
         window.toggleAuth = () => {
@@ -154,6 +207,7 @@
             document.getElementById('auth-title').innerText = isLogin ? "መመዝገቢያ" : "እንኳን ደህና መጡ";
             document.getElementById('auth-btn').innerText = isLogin ? "ተመዝገብ" : "ግባ";
             document.getElementById('reg-fields').style.display = isLogin ? "block" : "none";
+            document.getElementById('toggle-text').innerText = isLogin ? "አካውንት አለኝ? ተመለስ" : "አዲስ አካውንት ለመክፈት እዚህ ይጫኑ";
         };
 
         window.logout = () => signOut(auth).then(() => location.reload());
