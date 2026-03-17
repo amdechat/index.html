@@ -3,110 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amde-Chat Final Edition</title>
+    <title>Amde-Chat | Ultimate Edition</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Noto+Sans+Ethiopic:wght@400;700&display=swap" rel="stylesheet">
-    
     <style>
         :root { 
             --rainbow: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
-            --premium-grad: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --bright-blue: #007bff;
         }
-
-        body { 
-            font-family: 'Noto Sans Ethiopic', sans-serif; 
-            background: #ffffff; /* ጥቁር ያልሆነ ንጹህ ጀርባ */
-            margin: 0; 
-            padding-bottom: 90px;
-            color: #333;
-        }
-
-        /* 🌈 ባለቀለም Header */
-        header { 
-            padding: 25px 15px; 
-            text-align: center; 
-            background: #fff; 
-            border-bottom: 5px solid; 
-            border-image: var(--rainbow) 1;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .brand-name { 
-            font-family: 'Orbitron'; 
-            font-size: 38px; 
-            background: var(--rainbow); 
-            -webkit-background-clip: text; 
-            color: transparent; 
-            animation: rainbow-anim 3s infinite linear;
-            font-weight: 900;
-        }
-
-        @keyframes rainbow-anim { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 80px; background: #f9f9f9; }
+        header { padding: 20px; text-align: center; background: #fff; border-bottom: 5px solid; border-image: var(--rainbow) 1; position: sticky; top: 0; z-index: 1000; }
+        .brand-name { font-size: 32px; font-weight: 900; background: var(--rainbow); -webkit-background-clip: text; color: transparent; letter-spacing: 2px; }
         
-        /* 👑 ጥቅሱ በሚያምር Background */
-        .premium-quote { 
-            background: var(--premium-grad); 
-            color: #fff; 
-            padding: 20px; 
-            border-radius: 15px; 
-            margin: 20px auto; 
-            max-width: 500px; 
-            font-weight: bold; 
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.3);
-        }
-
-        /* 📝 Post Box */
-        .post-box { 
-            background: #fff; 
-            border-radius: 15px; 
-            padding: 15px; 
-            margin: 20px auto; 
-            max-width: 500px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border: 1px solid #eee;
-        }
-        .post-box textarea { width: 100%; border: none; outline: none; font-size: 16px; resize: none; background: transparent; }
-        .post-actions { border-top: 1px solid #eee; padding-top: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .file-btn { color: #f5576c; cursor: pointer; font-size: 22px; }
-        .btn-post { background: var(--bright-blue); color: #fff; border: none; padding: 10px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,123,255,0.3); }
-
-        /* 🖼️ Feed Cards */
-        .feed-card { background: #fff; border-radius: 15px; padding: 20px; margin: 15px auto; max-width: 500px; border-left: 6px solid var(--bright-blue); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .post-user { font-weight: bold; color: #f5576c; margin-bottom: 10px; display: block; }
-
-        /* 💬 Chat */
-        .chat-area { height: 65vh; overflow-y: auto; padding: 15px; background: #fdfdfd; border-radius: 15px; max-width: 500px; margin: auto; border: 1px solid #eee; }
-        .msg { padding: 12px 18px; border-radius: 20px; margin-bottom: 10px; max-width: 75%; font-size: 15px; }
-        .msg.sent { background: var(--bright-blue); color: #fff; margin-left: auto; border-bottom-right-radius: 2px; }
-        .msg.recv { background: #f0f0f0; color: #333; border-bottom-left-radius: 2px; }
-
-        /* 🧭 Nav */
-        nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; height: 75px; border-top: 1px solid #eee; box-shadow: 0 -4px 10px rgba(0,0,0,0.05); z-index: 100; }
-        .nav-item { flex: 1; text-align: center; padding-top: 15px; color: #ccc; cursor: pointer; transition: 0.3s; }
-        .nav-item.active { color: var(--bright-blue); transform: scale(1.1); }
-        .nav-item i { font-size: 24px; display: block; }
-
-        .page { display: none; padding: 10px; animation: fadeIn 0.4s ease; }
+        /* Feed & UI */
+        .page { display: none; padding: 15px; max-width: 600px; margin: auto; }
         .active-page { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .post-card { background: #fff; border-radius: 15px; padding: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .post-user { font-weight: bold; color: #f5576c; }
+        
+        /* Media */
+        .media-content { width: 100%; border-radius: 10px; margin-top: 10px; max-height: 400px; object-fit: cover; }
+        
+        /* Post Box */
+        .post-box { background: #fff; padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #eee; }
+        textarea { width: 100%; border: none; outline: none; font-size: 16px; resize: none; }
+        .post-actions { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 10px; }
+        
+        /* Navigation */
+        nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; height: 70px; border-top: 1px solid #eee; box-shadow: 0 -5px 15px rgba(0,0,0,0.05); }
+        .nav-item { flex: 1; text-align: center; padding: 12px; color: #999; cursor: pointer; font-size: 20px; }
+        .nav-item.active { color: #007bff; transform: scale(1.1); }
+        
+        /* Chat */
+        .chat-box { height: 70vh; overflow-y: auto; display: flex; flex-direction: column; }
+        .msg { padding: 10px 15px; margin: 5px; border-radius: 18px; max-width: 75%; font-size: 14px; }
+        .sent { background: var(--bright-blue); color: white; align-self: flex-end; }
+        .recv { background: #e9e9eb; color: black; align-self: flex-start; }
+
+        .btn-post { background: var(--bright-blue); color: white; border: none; padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="brand-name">AMDE-CHAT</div>
-    <div class="premium-quote">"ትላንት በዓለት ላይ ጥበብን ቀረጽን፤ ዛሬ በዲጂታሉ ዓለም 'አምድ-ቻት'ን መሰረትን። 🏰✨"</div>
-</header>
+<header><div class="brand-name">AMDE-CHAT</div></header>
 
 <div id="auth-page" class="page active-page">
-    <div style="max-width:380px; margin: 40px auto; background:#fff; padding:35px; border-radius:25px; text-align:center; box-shadow:0 15px 35px rgba(0,0,0,0.1);">
-        <h2 id="auth-title" style="margin-bottom:25px; color:#333;">እንኳን ደህና መጡ</h2>
-        <input type="email" id="email" style="width:100%; padding:15px; margin-bottom:15px; border:1px solid #eee; border-radius:12px; box-sizing:border-box;" placeholder="ኢሜይል">
-        <input type="password" id="password" style="width:100%; padding:15px; margin-bottom:20px; border:1px solid #eee; border-radius:12px; box-sizing:border-box;" placeholder="የምስጢር ቁጥር">
-        <button onclick="handleAuth()" class="btn-post" style="width:100%; float:none; padding:15px;">ግባ</button>
-        <p onclick="toggleAuth()" style="color:var(--bright-blue); cursor:pointer; margin-top:20px; font-weight:bold;">አዲስ አካውንት ለመክፈት</p>
+    <div style="text-align: center; margin-top: 50px;">
+        <h2>እንኳን ደህና መጡ</h2>
+        <input type="email" id="email" placeholder="ኢሜይል" style="width: 90%; padding: 12px; margin: 10px; border-radius: 10px; border: 1px solid #ddd;">
+        <input type="password" id="password" placeholder="የምስጢር ቁጥር" style="width: 90%; padding: 12px; margin: 10px; border-radius: 10px; border: 1px solid #ddd;">
+        <button onclick="handleAuth()" class="btn-post" style="width: 95%; padding: 12px;">ግባ / ተመዝገብ</button>
     </div>
 </div>
 
@@ -114,7 +60,9 @@
     <div class="post-box">
         <textarea id="postTxt" rows="3" placeholder="ምን አዲስ ነገር አለ?"></textarea>
         <div class="post-actions">
-            <label class="file-btn"><i class="fas fa-images"></i><input type="file" id="postFile" hidden accept="image/*,video/*"></label>
+            <label style="cursor: pointer; color: #f5576c;"><i class="fas fa-camera"></i> ፎቶ/ቪዲዮ
+                <input type="file" id="postFile" hidden accept="image/*,video/*">
+            </label>
             <button class="btn-post" onclick="uploadPost()">POST</button>
         </div>
     </div>
@@ -122,123 +70,125 @@
 </div>
 
 <div id="chat" class="page">
-    <div class="chat-area" id="chat-box"></div>
-    <div style="max-width:500px; margin:15px auto; display:flex; gap:10px;">
-        <input type="text" id="msgInput" style="flex:1; padding:15px; border-radius:30px; border:1px solid #eee; outline:none;" placeholder="መልዕክት ይጻፉ...">
-        <button onclick="sendMsg()" style="background:var(--bright-blue); color:#fff; border:none; width:50px; height:50px; border-radius:50%; cursor:pointer;"><i class="fas fa-paper-plane"></i></button>
+    <div class="chat-box" id="chat-messages"></div>
+    <div style="display: flex; gap: 10px; padding-top: 10px;">
+        <input type="text" id="msgInput" placeholder="መልዕክት..." style="flex: 1; padding: 10px; border-radius: 20px; border: 1px solid #ddd;">
+        <button onclick="sendMsg()" class="btn-post"><i class="fas fa-paper-plane"></i></button>
     </div>
 </div>
 
 <nav id="navbar" style="display:none;">
-    <div class="nav-item active" onclick="showTab('home', this)"><i class="fas fa-th-large"></i><span>Feed</span></div>
-    <div class="nav-item" onclick="showTab('chat', this)"><i class="fas fa-comment-dots"></i><span>Chat</span></div>
-    <div class="nav-item" onclick="logout()"><i class="fas fa-power-off"></i><span>Exit</span></div>
+    <div class="nav-item active" onclick="showTab('home', this)"><i class="fas fa-home"></i></div>
+    <div class="nav-item" onclick="showTab('chat', this)"><i class="fas fa-comment"></i></div>
+    <div class="nav-item" onclick="logout()"><i class="fas fa-sign-out-alt"></i></div>
 </nav>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<script>
+    const supabaseUrl = 'https://kwrnjepvkqlvwljsjfvj.supabase.co';
+    const supabaseKey = 'sb_publishable_ROrHu97hk6nLIIEFWDFTIA_llXAy4YL';
+    const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyBHcrGqhXf4tkIqPi1sMCFC4zo9XrRoBFE",
-        authDomain: "amde-chat-46e14.firebaseapp.com",
-        projectId: "amde-chat-46e14",
-        storageBucket: "amde-chat-46e14.firebasestorage.app",
-        messagingSenderId: "1087288685786",
-        appId: "1:1087288685786:web:467d7fce6555cc0544a1e3"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
     let currentUser = null;
 
-    onAuthStateChanged(auth, user => {
-        if(user) {
-            currentUser = user;
-            document.getElementById('auth-page').classList.remove('active-page');
-            document.getElementById('navbar').style.display = 'flex';
-            document.getElementById('home').classList.add('active-page');
-            loadFeed();
-            loadChat();
+    // Authentication
+    async function handleAuth() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const { data, error } = await _supabase.auth.signUp({ email, password });
+        
+        if (error) { // አካውንት ካለው እንዲገባ ማድረግ
+            const { data: logData, error: logError } = await _supabase.auth.signInWithPassword({ email, password });
+            if (logError) alert(logError.message);
+            else initApp(logData.user);
         } else {
-            document.getElementById('auth-page').classList.add('active-page');
-            document.getElementById('navbar').style.display = 'none';
+            alert("የማረጋገጫ ኢሜይል ተልኳል ወይም መግባት ትችላለህ!");
+            initApp(data.user);
         }
-    });
+    }
 
-    window.uploadPost = async () => {
+    function initApp(user) {
+        currentUser = user;
+        document.getElementById('auth-page').classList.remove('active-page');
+        document.getElementById('navbar').style.display = 'flex';
+        document.getElementById('home').classList.add('active-page');
+        loadFeed();
+        loadChat();
+    }
+
+    // Upload Post (Image, Video & Text)
+    async function uploadPost() {
         const txt = document.getElementById('postTxt').value;
         const file = document.getElementById('postFile').files[0];
-        if(!txt && !file) return;
-        await addDoc(collection(db, "posts"), {
-            text: txt,
-            user: currentUser.email.split('@')[0],
-            time: serverTimestamp(),
-            hasMedia: file ? true : false
-        });
-        document.getElementById('postTxt').value = "";
-    };
+        let mediaUrl = null;
+        let type = null;
 
-    function loadFeed() {
-        onSnapshot(query(collection(db, "posts"), orderBy("time", "desc")), snap => {
-            const cont = document.getElementById('feed-container');
-            cont.innerHTML = "";
-            snap.forEach(doc => {
-                const d = doc.data();
-                cont.innerHTML += `<div class="feed-card">
-                    <span class="post-user">@${d.user}</span>
-                    <p style="margin:0; font-size:16px; line-height:1.6;">${d.text}</p>
-                    ${d.hasMedia ? '<div style="margin-top:10px; color:#aaa; font-size:12px;">📷 Media Attached</div>' : ''}
-                </div>`;
-            });
-        });
+        if (!txt && !file) return;
+
+        if (file) {
+            const fileName = Date.now() + "_" + file.name;
+            type = file.type.split('/')[0]; // 'image' or 'video'
+            const { data } = await _supabase.storage.from('post-media').upload(fileName, file);
+            if (data) {
+                mediaUrl = _supabase.storage.from('post-media').getPublicUrl(fileName).data.publicUrl;
+            }
+        }
+
+        await _supabase.from('posts').insert([{ 
+            content: txt, 
+            user_name: currentUser.email, 
+            media_url: mediaUrl,
+            file_type: type
+        }]);
+
+        document.getElementById('postTxt').value = "";
+        document.getElementById('postFile').value = "";
+        loadFeed();
     }
 
-    window.sendMsg = async () => {
-        const m = document.getElementById('msgInput').value;
-        if(!m.trim()) return;
-        await addDoc(collection(db, "messages"), {
-            text: m,
-            sender: currentUser.email,
-            time: serverTimestamp()
-        });
+    async function loadFeed() {
+        const { data } = await _supabase.from('posts').select('*').order('created_at', { ascending: false });
+        const cont = document.getElementById('feed-container');
+        cont.innerHTML = data.map(p => `
+            <div class="post-card">
+                <div class="post-user">@${p.user_name.split('@')[0]}</div>
+                <p>${p.content}</p>
+                ${p.media_url ? (p.file_type === 'video' ? 
+                    `<video src="${p.media_url}" controls class="media-content"></video>` : 
+                    `<img src="${p.media_url}" class="media-content">`) : ''}
+            </div>
+        `).join('');
+    }
+
+    // Chat Logic
+    async function sendMsg() {
+        const msg = document.getElementById('msgInput').value;
+        if (!msg) return;
+        await _supabase.from('messages').insert([{ message: msg, sender: currentUser.email }]);
         document.getElementById('msgInput').value = "";
-    };
+    }
 
     function loadChat() {
-        onSnapshot(query(collection(db, "messages"), orderBy("time", "asc")), snap => {
-            const box = document.getElementById('chat-box');
-            box.innerHTML = "";
-            snap.forEach(doc => {
-                const d = doc.data();
-                const cls = d.sender === currentUser.email ? 'sent' : 'recv';
-                box.innerHTML += `<div class="msg ${cls}">${d.text}</div>`;
-            });
+        _supabase.from('messages').select('*').order('created_at', { ascending: true }).then(({ data }) => {
+            const box = document.getElementById('chat-messages');
+            box.innerHTML = data.map(m => `
+                <div class="msg ${m.sender === currentUser.email ? 'sent' : 'recv'}">${m.message}</div>
+            `).join('');
             box.scrollTop = box.scrollHeight;
         });
+        
+        // Realtime
+        _supabase.channel('messages').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, loadChat).subscribe();
     }
 
-    window.handleAuth = () => {
-        const e = document.getElementById('email').value, p = document.getElementById('password').value;
-        const isLogin = document.getElementById('auth-title').innerText === "መግቢያ";
-        isLogin ? signInWithEmailAndPassword(auth, e, p) : createUserWithEmailAndPassword(auth, e, p);
-    };
-
-    window.toggleAuth = () => {
-        const t = document.getElementById('auth-title');
-        t.innerText = t.innerText === "መግቢያ" ? "ይመዝገቡ" : "መግቢያ";
-    };
-
-    window.showTab = (id, el) => {
+    function showTab(id, el) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
         document.getElementById(id).classList.add('active-page');
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
         el.classList.add('active');
-    };
+        if(id === 'home') loadFeed();
+    }
 
-    window.logout = () => signOut(auth).then(() => location.reload());
+    function logout() { location.reload(); }
 </script>
 </body>
 </html>
