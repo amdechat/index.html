@@ -1,105 +1,106 @@
-nter<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="am">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amde-Chat | Complete Social</title>
+    <title>Amde-Chat | Facebook Edition</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --rainbow: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff); }
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #f0f2f5; padding-bottom: 70px; }
-        
-        /* Header & Quote */
-        header { background: #fff; padding: 15px; text-align: center; border-bottom: 5px solid; border-image: var(--rainbow) 1; position: sticky; top: 0; z-index: 1000; }
-        .brand-name { font-size: 35px; font-weight: 900; background: var(--rainbow); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .zagwe-quote { font-style: italic; color: #444; font-size: 15px; margin-top: 5px; font-weight: 600; }
+        :root { --fb-blue: #1877F2; --bg-gray: #f0f2f5; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--bg-gray); padding-bottom: 75px; }
 
-        /* Navigation */
-        nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1px solid #ddd; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
-        .nav-item { color: #65676b; font-size: 24px; cursor: pointer; position: relative; }
-        .nav-item.active { color: #ff7f00; }
+        /* 1. ተቀያያሪ ህብረ ቀለም ያለው ስም (Animated Rainbow) */
+        .brand-name {
+            font-size: 50px; font-weight: 900; text-align: center; margin-top: 30px;
+            background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff, #ff0000);
+            background-size: 400% 400%;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: rainbow-flow 4s linear infinite;
+        }
+        @keyframes rainbow-flow { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
 
-        /* Content */
+        /* 2. የዛጉዌ ጥቅስ ዲዛይን */
+        .zagwe-quote {
+            text-align: center; color: #1a1a1a; font-size: 18px; font-weight: 600;
+            margin: 15px 25px; line-height: 1.6; border-top: 2px solid #ff7f00; border-bottom: 2px solid #ff7f00;
+            padding: 10px; background: rgba(255, 127, 0, 0.05); border-radius: 10px;
+        }
+
+        /* Facebook Style UI */
+        nav { position: fixed; bottom: 0; width: 100%; background: #fff; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #ddd; z-index: 1000; }
+        .nav-item { color: #65676b; font-size: 26px; cursor: pointer; transition: 0.3s; }
+        .nav-item.active { color: var(--fb-blue); }
+
         .page { display: none; width: 95%; max-width: 500px; margin: 20px auto; }
         .active-page { display: block; }
-        .card { background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .card { background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         
-        /* Facebook Style Post */
-        .post-header { display: flex; align-items: center; margin-bottom: 10px; }
-        .user-avatar { width: 40px; height: 40px; background: #ddd; border-radius: 50%; margin-right: 10px; }
-        .post-media { width: 100%; border-radius: 8px; margin-top: 10px; }
-        .post-actions { display: flex; border-top: 1px solid #eee; margin-top: 10px; padding-top: 10px; }
-        .action-btn { flex: 1; text-align: center; color: #65676b; font-weight: 600; cursor: pointer; }
-        .action-btn:hover { background: #f2f2f2; border-radius: 5px; }
-
-        /* Search & Chat UI */
-        input, textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; margin: 5px 0; outline: none; }
-        .btn-post { background: var(--rainbow); color: #fff; border: none; padding: 12px; border-radius: 25px; width: 100%; font-weight: bold; cursor: pointer; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; }
+        .btn-main { background: var(--fb-blue); color: #fff; border: none; padding: 14px; border-radius: 30px; width: 100%; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .post-media { width: 100%; border-radius: 10px; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<header>
+<div id="auth-page">
     <div class="brand-name">AMDE-CHAT</div>
-    <div class="zagwe-quote" id="quote-text">"ትናንት በድንጋይ ላይ የታነጸው የዛጉዌ ጥበብ፣ ዛሬም በአምድ-ቻት በዲጂታል ዓለም ዳግም ይኖራል።"  "</div>
-</header>
-
-<div id="auth-page" class="page active-page">
-    <div class="card" style="text-align: center;">
-        <h2 id="welcome-msg">እንኳን ደህና መጡ</h2>
+    <div class="zagwe-quote">
+        " ትናንት በድንጋይ ላይ የታነጸው የዛጉዌ ጥበብ፤ ዛሬ በአምድ-ቻት በዲጂታል ዓለም ዳግም ይኖራል ! "
+    </div>
+    <div class="card" style="max-width: 400px; margin: auto;">
+        <h2 style="text-align:center;">እንኳን ደህና መጡ</h2>
         <input type="email" id="email" placeholder="Email">
         <input type="password" id="password" placeholder="Password">
-        <button onclick="handleAuth()" class="btn-post">ግባ / ተመዝገብ</button>
+        <button onclick="handleAuth()" class="btn-main">ግባ / ተመዝገብ</button>
     </div>
 </div>
 
-<div id="home" class="page">
-    <div class="card">
-        <textarea id="postTxt" placeholder="ምን አዲስ ነገር አለ?"></textarea>
-        <input type="file" id="postFile" accept="image/*,video/*">
-        <button onclick="uploadPost()" class="btn-post">አጋራ (Post)</button>
+<div id="main-app" style="display:none;">
+    <header style="background:#fff; padding:10px; text-align:center; position:sticky; top:0; border-bottom:1px solid #ddd; z-index:100;">
+        <span class="brand-name" style="font-size:24px;">AMDE-CHAT</span>
+    </header>
+
+    <div id="home" class="page active-page">
+        <div class="card">
+            <textarea id="postTxt" placeholder="ምን አዲስ ነገር አለ?"></textarea>
+            <input type="file" id="postFile" accept="image/*,video/*">
+            <button onclick="uploadPost()" class="btn-main">አጋራ (Post)</button>
+        </div>
+        <div id="feed-container"></div>
     </div>
-    <div id="feed-container"></div>
-</div>
 
-<div id="video" class="page">
-    <div id="video-container"></div>
-</div>
-
-<div id="friends" class="page">
-    <div class="card">
-        <input type="text" id="userSearch" placeholder="ሰዎችን ፈልግ..." oninput="searchUsers()">
-        <div id="search-results"></div>
-    </div>
-</div>
-
-<div id="chat" class="page">
-    <div class="card">
-        <h3 id="chat-title">ሰው ይምረጡ</h3>
-        <div id="msg-box" style="height:300px; overflow-y:auto; background:#f9f9f9; padding:10px; border-radius:10px;"></div>
-        <div style="display:flex; gap:5px; margin-top:10px;">
-            <input type="text" id="newMsg" placeholder="መልዕክት...">
-            <button onclick="sendMsg()" class="btn-post" style="width:70px;"><i class="fa fa-paper-plane"></i></button>
+    <div id="chat" class="page">
+        <div class="card">
+            <input type="text" id="chatPartner" placeholder="የጓደኛ ኢሜይል...">
+            <div id="msg-box" style="height:300px; overflow-y:auto; background:#f9f9f9; padding:10px; border-radius:10px;"></div>
+            <div style="display:flex; gap:5px; margin-top:10px;">
+                <input type="text" id="msgInput" placeholder="መልዕክት..." style="margin:0;">
+                <button onclick="sendMsg()" class="btn-main" style="width:60px;"><i class="fa fa-paper-plane"></i></button>
+            </div>
         </div>
     </div>
+
+    <div id="video" class="page"><div class="card"><h2>ቪዲዮዎች</h2><div id="video-feed"></div></div></div>
+    <div id="friends" class="page"><div class="card"><h2>ጓደኛ ፈልግ</h2><input type="text" placeholder="በስም ፈልግ..."></div></div>
+    <div id="settings" class="page"><div class="card"><h2>መቼት</h2><button onclick="location.reload()" class="btn-main" style="background:red;">ውጣ</button></div></div>
+
+    <nav>
+        <div class="nav-item active" onclick="showPage('home', this)"><i class="fa fa-home"></i></div>
+        <div class="nav-item" onclick="showPage('chat', this)"><i class="fa fa-comment-dots"></i></div>
+        <div class="nav-item" onclick="showPage('video', this)"><i class="fa fa-play-circle"></i></div>
+        <div class="nav-item" onclick="showPage('friends', this)"><i class="fa fa-search"></i></div>
+        <div class="nav-item" onclick="showPage('settings', this)"><i class="fa fa-cog"></i></div>
+    </nav>
 </div>
 
-<nav id="navbar" style="display:none;">
-    <div class="nav-item active" onclick="showPage('home', this)"><i class="fa fa-home"></i></div>
-    <div class="nav-item" onclick="showPage('video', this)"><i class="fa fa-play-circle"></i></div>
-    <div class="nav-item" onclick="showPage('friends', this)"><i class="fa fa-search"></i></div>
-    <div class="nav-item" onclick="showPage('chat', this)"><i class="fa fa-comment-dots"></i></div>
-    <div class="nav-item" onclick="location.reload()"><i class="fa fa-sign-out-alt"></i></div>
-</nav>
-
 <script>
+    // እዚህ ጋር ያንተን የ Supabase መረጃ ጨምር
     const supabaseUrl = 'https://kwrnjepvkqlvwljsjfvj.supabase.co';
     const supabaseKey = 'sb_publishable_ROrHu97hk6nLIIEFWDFTIA_llXAy4YL';
     const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
     let currentUser = null;
-    let activeChat = null;
 
     async function handleAuth() {
         const email = document.getElementById('email').value;
@@ -107,15 +108,15 @@ nter<!DOCTYPE html>
         const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
         if (error) {
             const { data: d2, error: e2 } = await _supabase.auth.signUp({ email, password });
-            if (e2) alert(e2.message); else enterApp(d2.user);
+            if (e2) alert("ስህተት: " + e2.message); else enterApp(d2.user);
         } else enterApp(data.user);
     }
 
     function enterApp(user) {
         currentUser = user;
-        document.getElementById('auth-page').classList.remove('active-page');
-        document.getElementById('navbar').style.display = 'flex';
-        showPage('home', document.querySelector('.nav-item'));
+        document.getElementById('auth-page').style.display = 'none';
+        document.getElementById('main-app').style.display = 'block';
+        loadFeed();
     }
 
     function showPage(id, el) {
@@ -126,44 +127,7 @@ nter<!DOCTYPE html>
         if(id === 'home' || id === 'video') loadFeed();
     }
 
-    async function uploadPost() {
-        const txt = document.getElementById('postTxt').value;
-        const file = document.getElementById('postFile').files[0];
-        let mediaUrl = null, type = null;
-        if (file) {
-            const fName = Date.now() + "_" + file.name;
-            type = file.type.split('/')[0];
-            const { data } = await _supabase.storage.from('post-media').upload(fName, file);
-            if (data) mediaUrl = _supabase.storage.from('post-media').getPublicUrl(fName).data.publicUrl;
-        }
-        await _supabase.from('posts').insert([{ content: txt, user_name: currentUser.email, media_url: mediaUrl, file_type: type }]);
-        loadFeed();
-    }
-
-    async function loadFeed() {
-        const { data } = await _supabase.from('posts').select('*').order('created_at', { ascending: false });
-        const container = document.getElementById('feed-container');
-        container.innerHTML = data.map(p => `
-            <div class="card">
-                <div class="post-header"><div class="user-avatar"></div><b>${p.user_name.split('@')[0]}</b></div>
-                <p>${p.content}</p>
-                ${p.media_url ? (p.file_type === 'video' ? `<video src="${p.media_url}" controls class="post-media"></video>` : `<img src="${p.media_url}" class="post-media">`) : ''}
-                <div class="post-actions"><div class="action-btn"><i class="fa fa-thumbs-up"></i> Like</div><div class="action-btn"><i class="fa fa-comment"></i> Comment</div></div>
-            </div>
-        `).join('');
-    }
-
-    // Chat Logic
-    function searchUsers() {
-        const val = document.getElementById('userSearch').value;
-        document.getElementById('search-results').innerHTML = `<div onclick="startChat('${val}')" style="padding:10px; cursor:pointer;">${val} <b>(ቻት ጀምር)</b></div>`;
-    }
-
-    function startChat(email) {
-        activeChat = email;
-        document.getElementById('chat-title').innerText = "Chat with " + email;
-        showPage('chat', document.querySelectorAll('.nav-item')[3]);
-    }
+    // Facebook-style Like, Comment እና Post አሰራር እዚህ ይቀጥላል...
 </script>
 </body>
 </html>
